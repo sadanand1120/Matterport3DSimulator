@@ -9,6 +9,7 @@ import time
 import math
 from collections import Counter
 import numpy as np
+np.int = np.int32
 import networkx as nx
 
 

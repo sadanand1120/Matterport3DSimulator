@@ -4,8 +4,9 @@ import json
 import os
 import sys
 from collections import defaultdict
-import networkx as nx
 import numpy as np
+np.int = np.int32
+import networkx as nx
 import pprint
 import torch
 pp = pprint.PrettyPrinter(indent=4)
@@ -118,8 +119,8 @@ class Evaluation(object):
 
 def eval_simple_agents():
     ''' Run simple baselines on each split. '''
-    # for split in ['train', 'val_seen', 'val_unseen']:
-    for split in ['val_seen', 'my_val_seen']:
+    for split in ['train', 'val_seen', 'val_unseen']:
+    # for split in ['val_seen', 'my_val_seen']:
         env = R2RBatch(None, batch_size=1, splits=[split])
         ev = Evaluation([split])
 
@@ -203,7 +204,7 @@ if __name__ == '__main__':
     # save_json_encodings('test')
     # save_json_encodings('my_val_seen')
     # save_json_encodings('my_val_seen_modified')
-    eval_from_json('my_val_seen', 'third_party/NaviLLM/build/eval/R2R_my_val_seen.json')
-    eval_from_json('my_val_seen_modified', 'third_party/NaviLLM/build/eval/R2R_my_val_seen_modified.json')
-    eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
-    eval_from_json('my_val_seen_modified', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_modified_seq2seq_final_agent.json')
+    # eval_from_json('my_val_seen', 'third_party/NaviLLM/build/eval/R2R_my_val_seen.json')
+    # eval_from_json('my_val_seen_modified', 'third_party/NaviLLM/build/eval/R2R_my_val_seen_modified.json')
+    # eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
+    # eval_from_json('my_val_seen_modified', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_modified_seq2seq_final_agent.json')

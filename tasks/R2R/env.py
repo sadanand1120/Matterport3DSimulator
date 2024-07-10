@@ -9,6 +9,7 @@ import math
 import base64
 import json
 import random
+import numpy as np
 import networkx as nx
 
 from utils import load_datasets, load_nav_graphs
