@@ -314,7 +314,7 @@ class Seq2SeqAgent(BaseAgent):
         torch.save(self.encoder.state_dict(), encoder_path)
         torch.save(self.decoder.state_dict(), decoder_path)
 
-    def load(self, encoder_path, decoder_path):
+    def load(self, encoder_path, decoder_path, map_location=None):
         ''' Loads parameters (but not training state) '''
-        self.encoder.load_state_dict(torch.load(encoder_path))
-        self.decoder.load_state_dict(torch.load(decoder_path))
+        self.encoder.load_state_dict(torch.load(encoder_path, map_location=map_location))
+        self.decoder.load_state_dict(torch.load(decoder_path, map_location=map_location))

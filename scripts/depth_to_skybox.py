@@ -10,6 +10,7 @@ import math
 import cv2
 import numpy as np
 from multiprocessing import Pool
+from tqdm import tqdm
 from numpy.linalg import inv,norm
 from io import StringIO
 
@@ -143,7 +144,7 @@ def depth_to_skybox(scan, visualize=VISUALIZE_OUTPUT, fill_holes=FILL_HOLES):
     cv2.namedWindow('Depth')
     cv2.namedWindow('Skybox')
 
-  for pano in pano_ids:
+  for pano in tqdm(pano_ids):
 
     # Load undistorted depth and rgb images
     depth = {}
