@@ -8,6 +8,7 @@ import numpy as np
 np.int = np.int32
 import networkx as nx
 import pprint
+import ipdb
 import torch
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -45,6 +46,7 @@ class Evaluation(object):
         self.distances = {}
         for scan,G in self.graphs.items(): # compute all shortest paths
             self.distances[scan] = dict(nx.all_pairs_dijkstra_path_length(G))
+        self.scores_dict = dict()
 
     def _get_nearest(self, scan, goal_id, path):
         near_id = path[0][0]
@@ -82,6 +84,12 @@ class Evaluation(object):
             prev = curr
         self.scores['trajectory_lengths'].append(distance)
         self.scores['shortest_path_lengths'].append(self.distances[gt['scan']][start][goal])
+        self.scores_dict[instr_id] = {
+            'nav_error': self.distances[gt['scan']][final_position][goal],
+            'oracle_error': self.distances[gt['scan']][nearest_position][goal],
+            'trajectory_length': distance,
+            'shortest_path_length': self.distances[gt['scan']][start][goal]
+        }
 
     def score(self, output_file):
         ''' Evaluate each agent trajectory based on how close it got to the goal location '''
@@ -113,6 +121,17 @@ class Evaluation(object):
             'success_rate': float(num_successes)/float(len(self.scores['nav_errors'])),
             'spl': np.average(spls)
         }
+        
+        for idx in self.scores_dict.keys():
+            suc = 1 if self.scores_dict[idx]['nav_error'] < self.error_margin else 0
+            oracle_suc = 1 if self.scores_dict[idx]['oracle_error'] < self.error_margin else 0
+            if suc == 1:
+                spl = self.scores_dict[idx]['shortest_path_length'] / max(self.scores_dict[idx]['trajectory_length'], self.scores_dict[idx]['shortest_path_length'])
+            else:
+                spl = 0
+            self.scores_dict[idx]['success'] = suc
+            self.scores_dict[idx]['oracle_success'] = oracle_suc
+            self.scores_dict[idx]['spl'] = spl
 
         assert score_summary['spl'] <= score_summary['success_rate']
         return score_summary, self.scores
@@ -165,7 +184,8 @@ def save_json_encodings(split):
 def eval_from_json(split, json_filepath):
     ''' Evaluate a json file of agent trajectories. '''
     ev = Evaluation([split])
-    score_summary, _ = ev.score(json_filepath)
+    score_summary, scores = ev.score(json_filepath)
+    # ipdb.set_trace()
     print(green('\n%s' % json_filepath, 'bold'))
     pp.pprint(score_summary)
 
@@ -182,7 +202,7 @@ def load_eval_seq2seq():
                               32, 512, 0.5)
     decoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_dec_iter_20000', map_location='cuda'))
     decoder = decoder.cuda()
-    for split in ['val_seen', 'my_val_seen', 'my_val_seen_modified']:
+    for split in ['train', 'val_seen', 'val_unseen']:
         env = R2RBatch(IMAGENET_FEATURES, batch_size=40, splits=[split], tokenizer=tok)
         ev = Evaluation([split])
         outfile = '%s%s_%s_agent.json' % (RESULT_DIR, split, 'seq2seq_final'.lower())
@@ -195,10 +215,11 @@ def load_eval_seq2seq():
 
 
 if __name__ == '__main__':
-    eval_simple_agents()
+    # eval_simple_agents()
     # eval_seq2seq()
     
     # load_eval_seq2seq()
+    eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
     # save_json_encodings('val_seen')
     # save_json_encodings('val_unseen')
     # save_json_encodings('test')
