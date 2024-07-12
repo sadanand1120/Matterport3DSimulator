@@ -191,7 +191,7 @@ def eval_from_json(split, json_filepath):
 
 
 def load_eval_seq2seq():
-    vocab = read_vocab(TRAIN_VOCAB)
+    vocab = read_vocab(TRAINVAL_VOCAB)
     tok = Tokenizer(vocab=vocab, encoding_length=MAX_INPUT_LENGTH)
     enc_hidden_size = 512 // 2 if False else 512
     encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx,
