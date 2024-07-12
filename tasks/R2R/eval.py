@@ -39,7 +39,7 @@ class Evaluation(object):
         for item in load_datasets(splits):
             self.gt[item['path_id']] = item
             self.scans.append(item['scan'])
-            self.instr_ids += ['%d_%d' % (item['path_id'],i) for i in range(3)]
+            self.instr_ids += ['%d_%d' % (item['path_id'],i) for i in range(len(item['instructions']))]
         self.scans = set(self.scans)
         self.instr_ids = set(self.instr_ids)
         self.graphs = load_nav_graphs(self.scans)
@@ -191,7 +191,7 @@ def eval_from_json(split, json_filepath):
 
 
 def load_eval_seq2seq():
-    vocab = read_vocab(TRAINVAL_VOCAB)
+    vocab = read_vocab(TRAIN_VOCAB)
     tok = Tokenizer(vocab=vocab, encoding_length=MAX_INPUT_LENGTH)
     enc_hidden_size = 512 // 2 if False else 512
     encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx,

@@ -30,7 +30,7 @@ from model import EncoderLSTM, AttnDecoderLSTM
 from simple_colors import green
 from eval import Evaluation
 
-TRAINVAL_VOCAB = 'tasks/R2R/data/trainval_vocab.txt'
+TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 IMAGENET_FEATURES = 'img_features/ResNet-152-imagenet.tsv'
 MAX_INPUT_LENGTH = 80
 _DATA_PATH = "tasks/R2R/data/"
@@ -44,7 +44,7 @@ def r2r_seq2seq(split):
         data += json.load(f)
     
     # generating preds
-    vocab = read_vocab(TRAINVAL_VOCAB)
+    vocab = read_vocab(TRAIN_VOCAB)
     tok = Tokenizer(vocab=vocab, encoding_length=MAX_INPUT_LENGTH)
     enc_hidden_size = 512 // 2 if False else 512
     encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx,
@@ -78,6 +78,7 @@ def r2r_seq2seq(split):
         new_preds[instr_id] = traj
     data_and_preds = []
     compact_data_and_preds = []
+    compact_data_and_preds.append(score_summary)
     for d in data:
         ins = d['instructions']
         for i, inst in enumerate(ins):
@@ -87,6 +88,7 @@ def r2r_seq2seq(split):
                     "distance": d["distance"],
                     "scan": d["scan"],
                     "path_id": d["path_id"],
+                    "instr_id": instr_id,
                     "gt_path": d["path"],
                     "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
                     "trajectory": new_preds[instr_id],
@@ -97,6 +99,7 @@ def r2r_seq2seq(split):
                 compact_data_and_preds.append({
                     "instruction": inst,
                     "success": ev.scores_dict[instr_id]['success'],
+                    "oracle_success": ev.scores_dict[instr_id]['oracle_success'],
                     "spl": ev.scores_dict[instr_id]['spl'],
                 })
     outfile = os.path.join(_OUTPUT_DIR, f"r2r_seq2seq_{split}.json")
@@ -106,62 +109,66 @@ def r2r_seq2seq(split):
     with open(compact_outfile, 'w') as f:
         json.dump(compact_data_and_preds, f, indent=4)
 
-def navillm(split):
+def navillm(split, use_buildpreds=False):
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
     with open(input_jsonpath) as f:
         data += json.load(f)
 
-    # generating preds
-    from transformers import AutoTokenizer
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-    data_enc = []
-    for item in data:
-        new_item = dict(item)
-        new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
-        data_enc.append(new_item)
-    tmpfile_enc = os.path.join(_TMP_DIR, f"navillm_{split}_enc.json")
-    with open(tmpfile_enc, 'w') as f:
-        json.dump(data_enc, f, indent=4)
-    os.chdir("thirdparty/NaviLLM")
-    try:
-        command = [
-            'torchrun', 
-            '--nnodes=1', 
-            '--nproc_per_node=8', 
-            '--master_port', '41000', 
-            'train.py',
-            '--stage', 'multi', 
-            '--mode', 'test', 
-            '--data_dir', 'data', 
-            '--cfg_file', 'configs/multi.yaml',
-            '--pretrained_model_name_or_path', 'data/models/Vicuna-7B', 
-            '--precision', 'amp_bf16',
-            '--resume_from_checkpoint', 'data/model_with_pretrain.pt',
-            '--test_datasets', 'R2R',
-            '--jsonpath', os.path.join("../..", tmpfile_enc),
-            '--batch_size', '4',
-            '--output_dir', os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
-            '--validation_split', split, 
-            '--save_pred_results'
-        ]
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
-        # Print output as it is received
-        with process.stdout, process.stderr:
-            for line in iter(process.stdout.readline, ''):
-                sys.stdout.write(line)
-            for line in iter(process.stderr.readline, ''):
-                sys.stderr.write(line)
-        # Wait for the process to complete
-        process.wait()
-        if process.returncode != 0:
-            print(f"An error occurred with return code {process.returncode}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    os.chdir("../..")
+    if not use_buildpreds:
+        # generating preds
+        from transformers import AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+        data_enc = []
+        for item in data:
+            new_item = dict(item)
+            new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
+            data_enc.append(new_item)
+        tmpfile_enc = os.path.join(_TMP_DIR, f"navillm_{split}_enc.json")
+        with open(tmpfile_enc, 'w') as f:
+            json.dump(data_enc, f, indent=4)
+        os.chdir("thirdparty/NaviLLM")
+        try:
+            command = [
+                'torchrun', 
+                '--nnodes=1', 
+                '--nproc_per_node=8', 
+                '--master_port', '41000', 
+                'train.py',
+                '--stage', 'multi', 
+                '--mode', 'test', 
+                '--data_dir', 'data', 
+                '--cfg_file', 'configs/multi.yaml',
+                '--pretrained_model_name_or_path', 'data/models/Vicuna-7B', 
+                '--precision', 'amp_bf16',
+                '--resume_from_checkpoint', 'data/model_with_pretrain.pt',
+                '--test_datasets', 'R2R',
+                '--jsonpath', os.path.join("../..", tmpfile_enc),
+                '--batch_size', '4',
+                '--output_dir', os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
+                '--validation_split', split, 
+                '--save_pred_results'
+            ]
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
+            # Print output as it is received
+            with process.stdout, process.stderr:
+                for line in iter(process.stdout.readline, ''):
+                    sys.stdout.write(line)
+                for line in iter(process.stderr.readline, ''):
+                    sys.stderr.write(line)
+            # Wait for the process to complete
+            process.wait()
+            if process.returncode != 0:
+                print(f"An error occurred with return code {process.returncode}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        os.chdir("../..")
 
     # generating scores
-    tmpfile = os.path.join(_TMP_DIR, f"navillm_{split}_eval", f"R2R_{split}.json")
+    if not use_buildpreds:
+        tmpfile = os.path.join(_TMP_DIR, f"navillm_{split}_eval", f"R2R_{split}.json")
+    else:
+        tmpfile = os.path.join("thirdparty/NaviLLM/build/eval", f"R2R_{split}.json")
     ev = Evaluation([split])
     score_summary, _ = ev.score(tmpfile)
     print(green(f'navillm_{split}', 'bold'))
@@ -178,6 +185,7 @@ def navillm(split):
         new_preds[instr_id] = traj
     data_and_preds = []
     compact_data_and_preds = []
+    compact_data_and_preds.append(score_summary)
     for d in data:
         ins = d['instructions']
         for i, inst in enumerate(ins):
@@ -187,6 +195,7 @@ def navillm(split):
                     "distance": d["distance"],
                     "scan": d["scan"],
                     "path_id": d["path_id"],
+                    "instr_id": instr_id,
                     "gt_path": d["path"],
                     "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
                     "trajectory": new_preds[instr_id],
@@ -197,6 +206,7 @@ def navillm(split):
                 compact_data_and_preds.append({
                     "instruction": inst,
                     "success": ev.scores_dict[instr_id]['success'],
+                    "oracle_success": ev.scores_dict[instr_id]['oracle_success'],
                     "spl": ev.scores_dict[instr_id]['spl'],
                 })
     outfile = os.path.join(_OUTPUT_DIR, f"navillm_{split}.json")
@@ -213,7 +223,8 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(_OUTPUT_DIR, "compact"), exist_ok=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
 
-    # r2r_seq2seq(split='val_unseen')
-    navillm(split='val_unseen')
+    for split in ['train', 'val_seen', 'val_unseen']:
+        r2r_seq2seq(split)
+        navillm(split, use_buildpreds=True)
     
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
