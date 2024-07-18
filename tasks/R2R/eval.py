@@ -219,9 +219,9 @@ if __name__ == '__main__':
     # eval_seq2seq()
     
     # load_eval_seq2seq()
-    eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
+    # eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
     # save_json_encodings('val_seen')
-    # save_json_encodings('val_unseen')
+    save_json_encodings('val_unseen_reduced')
     # save_json_encodings('test')
     # save_json_encodings('my_val_seen')
     # save_json_encodings('my_val_seen_modified')

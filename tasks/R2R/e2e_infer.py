@@ -223,8 +223,11 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(_OUTPUT_DIR, "compact"), exist_ok=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
 
-    for split in ['train', 'val_seen', 'val_unseen']:
-        r2r_seq2seq(split)
-        navillm(split, use_buildpreds=True)
+    # for split in ['train', 'val_seen', 'val_unseen']:
+    #     r2r_seq2seq(split)
+    #     navillm(split, use_buildpreds=True)
+
+    # navillm('val_unseen_reduced')
+    r2r_seq2seq('val_unseen_reduced')
     
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
