@@ -61,6 +61,7 @@ class Evaluation(object):
     def _score_item(self, instr_id, path):
         ''' Calculate error based on the final position in trajectory, and also
             the closest position (oracle stopping rule). '''
+        # import ipdb; ipdb.set_trace()
         gt = self.gt[int(instr_id.split('_')[0])]
         start = gt['path'][0]
         assert start == path[0][0], 'Result trajectories should include the start position'

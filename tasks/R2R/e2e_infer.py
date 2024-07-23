@@ -29,6 +29,7 @@ from utils import read_vocab, Tokenizer, padding_idx
 from model import EncoderLSTM, AttnDecoderLSTM
 from simple_colors import green
 from eval import Evaluation
+from copy import deepcopy
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 IMAGENET_FEATURES = 'img_features/ResNet-152-imagenet.tsv'
@@ -55,7 +56,7 @@ def r2r_seq2seq(split):
                               32, 512, 0.5)
     decoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_dec_iter_20000', map_location='cuda'))
     decoder = decoder.cuda()
-    env = R2RBatch(IMAGENET_FEATURES, batch_size=40, splits=[split], tokenizer=tok)
+    env = R2RBatch(IMAGENET_FEATURES, batch_size=40 if len(data) > 40 else len(data), splits=[split], tokenizer=tok)
     tmpfile = os.path.join(_TMP_DIR, f"r2r_seq2seq_{split}.json")
     agent = Seq2SeqAgent(env, tmpfile, encoder, decoder, 20)
     agent.test(use_dropout=False, feedback='argmax')
@@ -64,6 +65,7 @@ def r2r_seq2seq(split):
     # generating scores
     ev = Evaluation([split])
     score_summary, _ = ev.score(tmpfile)
+    score_summary['total_num_instr'] = len(ev.scores_dict)
     print(green(f'r2r_seq2seq_{split}', 'bold'))
     pp.pprint(score_summary)
 
@@ -98,9 +100,12 @@ def r2r_seq2seq(split):
                 })
                 compact_data_and_preds.append({
                     "instruction": inst,
+                    "instr_id": instr_id,
                     "success": ev.scores_dict[instr_id]['success'],
                     "oracle_success": ev.scores_dict[instr_id]['oracle_success'],
                     "spl": ev.scores_dict[instr_id]['spl'],
+                    "gt_path": d["path"],
+                    "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
                 })
     outfile = os.path.join(_OUTPUT_DIR, f"r2r_seq2seq_{split}.json")
     compact_outfile = os.path.join(_OUTPUT_DIR, "compact", f"r2r_seq2seq_{split}_compact.json")
@@ -132,7 +137,7 @@ def navillm(split, use_buildpreds=False):
             command = [
                 'torchrun', 
                 '--nnodes=1', 
-                '--nproc_per_node=8', 
+                '--nproc_per_node=1', 
                 '--master_port', '41000', 
                 'train.py',
                 '--stage', 'multi', 
@@ -144,7 +149,7 @@ def navillm(split, use_buildpreds=False):
                 '--resume_from_checkpoint', 'data/model_with_pretrain.pt',
                 '--test_datasets', 'R2R',
                 '--jsonpath', os.path.join("../..", tmpfile_enc),
-                '--batch_size', '4',
+                '--batch_size', '12',
                 '--output_dir', os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
                 '--validation_split', split, 
                 '--save_pred_results'
@@ -171,6 +176,7 @@ def navillm(split, use_buildpreds=False):
         tmpfile = os.path.join("thirdparty/NaviLLM/build/eval", f"R2R_{split}.json")
     ev = Evaluation([split])
     score_summary, _ = ev.score(tmpfile)
+    score_summary['total_num_instr'] = len(ev.scores_dict)
     print(green(f'navillm_{split}', 'bold'))
     pp.pprint(score_summary)
 
@@ -205,9 +211,12 @@ def navillm(split, use_buildpreds=False):
                 })
                 compact_data_and_preds.append({
                     "instruction": inst,
+                    "instr_id": instr_id,
                     "success": ev.scores_dict[instr_id]['success'],
                     "oracle_success": ev.scores_dict[instr_id]['oracle_success'],
                     "spl": ev.scores_dict[instr_id]['spl'],
+                    "gt_path": d["path"],
+                    "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
                 })
     outfile = os.path.join(_OUTPUT_DIR, f"navillm_{split}.json")
     compact_outfile = os.path.join(_OUTPUT_DIR, "compact", f"navillm_{split}_compact.json")
@@ -223,11 +232,8 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(_OUTPUT_DIR, "compact"), exist_ok=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
 
-    # for split in ['train', 'val_seen', 'val_unseen']:
-    #     r2r_seq2seq(split)
-    #     navillm(split, use_buildpreds=True)
-
-    # navillm('val_unseen_reduced')
-    r2r_seq2seq('val_unseen_reduced')
+    for split in ['train', 'val_seen', 'val_unseen']:
+        # r2r_seq2seq(split)
+        navillm(split, use_buildpreds=True)
     
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
