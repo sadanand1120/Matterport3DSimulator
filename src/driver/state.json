@@ -1,0 +1,39 @@
+{
+    "scanId": "1LXtFkjw3qL",
+    "step": 6,
+    "location": {
+        "viewpointId": "187589bb7d4644f2943079fb949c0be9",
+        "ix": 0,
+        "x": -4.5775299072265625,
+        "y": -4.391039848327637,
+        "z": 1.380270004272461,
+        "rel_heading": 0.0,
+        "rel_elevation": 0.0,
+        "rel_distance": 0.0
+    },
+    "heading": 0.30287751966078913,
+    "elevation": 0.0,
+    "viewIndex": 0,
+    "navigableLocations": [
+        {
+            "viewpointId": "187589bb7d4644f2943079fb949c0be9",
+            "ix": 0,
+            "x": -4.5775299072265625,
+            "y": -4.391039848327637,
+            "z": 1.380270004272461,
+            "rel_heading": 0.0,
+            "rel_elevation": 0.0,
+            "rel_distance": 0.0
+        },
+        {
+            "viewpointId": "64565f72062245da87430cc31dd383d9",
+            "ix": 117,
+            "x": -4.3714799880981445,
+            "y": -3.296999931335449,
+            "z": 1.3836899995803833,
+            "rel_heading": -0.11671960353851318,
+            "rel_elevation": 0.0030720048716916886,
+            "rel_distance": 1.1132797002792358
+        }
+    ]
+}

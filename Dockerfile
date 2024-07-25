@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools python3-dev
 # RUN pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 # RUN pip3 install opencv-python==4.1.0.25 numpy==1.13.3 pandas==0.24.1 networkx==2.2
-RUN apt-get update && apt-get install -y libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6 libxcb-xinerama0
 
 #install latest cmake
 ADD https://cmake.org/files/v3.12/cmake-3.12.2-Linux-x86_64.sh /cmake-3.12.2-Linux-x86_64.sh
@@ -39,3 +39,4 @@ ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
 # pip3 install easydict==1.10 h5py==2.10.0 jsonlines==2.0.0 lmdb==1.4.1 more_itertools==10.1.0 msgpack_numpy==0.4.8 msgpack_python==0.5.6 numpy==1.22.3 Pillow==10.1.0 progressbar33==2.4 psutil==5.9.4 PyYAML==6.0.1 ray==2.8.0 requests==2.25.1 shapely==2.0.1 timm==0.9.2 tqdm==4.64.1
 # pip3 install transformers==4.28.0 sentencepiece==0.1.99
 # pip3 install ipdb
+# pip3 install openai supervision==0.6.0
