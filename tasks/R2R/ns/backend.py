@@ -113,7 +113,7 @@ class FastGSAM:
                 per_class_mask[i] = np.any(masks[class_idx], axis=0)
         return per_class_mask
 
-    @torch.no_grad()
+    @torch.inference_mode()
     def predict_and_segment_on_image(self, img, text_prompts, do_nms=True, box_threshold=None, text_threshold=None, nms_threshold=None):
         """
         Performs zero-shot object detection using grounding DINO and segmentation using HQ-SAM on image.
@@ -153,3 +153,29 @@ def encode_image(img, mode="path"):
         return base64.b64encode(buffered.getvalue()).decode('utf-8')
     else:
         raise ValueError(f"Invalid encode mode: {mode}")
+
+
+def get_ideal_intrinsic_matrix(width: int, height: int, vfov_deg: float):
+    """
+    Get the ideal intrinsic matrix for a pinhole camera model.
+    Parameters:
+        width: Image width
+        height: Image height
+        vfov_deg: vertical field of view in degrees
+    Returns:
+        K: 3x3 intrinsic matrix
+    """
+    vfov = np.deg2rad(vfov_deg)
+    hfov = 2 * np.arctan(np.tan(vfov / 2) * width / height)
+    fx = width / (2 * np.tan(hfov / 2))
+    fy = height / (2 * np.tan(vfov / 2))
+    cx = width / 2
+    cy = height / 2
+    K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
+    return K
+
+
+if __name__ == "__main__":
+    # print numpy arrays without scientific notation
+    np.set_printoptions(suppress=True)
+    print(get_ideal_intrinsic_matrix(1280, 1024, 50.8))

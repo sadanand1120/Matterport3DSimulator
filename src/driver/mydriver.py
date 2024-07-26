@@ -89,9 +89,10 @@ def state_to_dict(mat_state):
 WIDTH = 800
 HEIGHT = 600
 VFOV = math.radians(60)
-HFOV = VFOV * WIDTH / HEIGHT
-TEXT_COLOR = [230, 40, 40]
-DEPTH_ENABLED = True
+# HFOV = VFOV * WIDTH / HEIGHT
+HFOV = 2 * math.atan(math.tan(VFOV / 2) * WIDTH / HEIGHT)
+TEXT_COLOR = [40, 40, 230]
+DEPTH_ENABLED = False
 ANGLEDELTA = 5 * math.pi / 180
 
 cv2.namedWindow('Python RGB')
@@ -113,11 +114,11 @@ while True:
     rgb = np.array(state.rgb, copy=False)
     for idx, loc in enumerate(locations[1:]):
         # Draw actions on the screen
-        fontScale = 3.0 / loc.rel_distance
+        fontScale = 0.75 / loc.rel_distance
         x = int(WIDTH / 2 + loc.rel_heading / HFOV * WIDTH)
         y = int(HEIGHT / 2 - loc.rel_elevation / VFOV * HEIGHT)
-        cv2.putText(rgb, str(idx + 1), (x, y), cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale, TEXT_COLOR, thickness=3)
+        cv2.putText(rgb, f"{idx+1}:{loc.viewpointId[:4]}", (x, y), cv2.FONT_HERSHEY_SIMPLEX,
+                    fontScale, TEXT_COLOR, thickness=1)
     cv2.imshow('Python RGB', rgb)
     if DEPTH_ENABLED:
         depth = np.array(state.depth, copy=False)
