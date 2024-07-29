@@ -99,6 +99,9 @@ cv2.namedWindow('Python RGB')
 if DEPTH_ENABLED:
     cv2.namedWindow('Python Depth')
 
+# fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+# out = cv2.VideoWriter('output.mp4', fourcc, 1.0, (WIDTH, HEIGHT))
+
 sim = MatterSim.Simulator()
 sim.setCameraResolution(WIDTH, HEIGHT)
 sim.setCameraVFOV(VFOV)
@@ -107,6 +110,7 @@ sim.initialize()
 # sim.newEpisode(['2t7WUuJeko7'], ['1e6b606b44df4a6086c0f97e826d4d15'], [0], [0])
 # sim.newEpisode(['1LXtFkjw3qL'], ['0b22fa63d0f54a529c525afbf2e8bb25'], [0], [0])
 sim.newRandomEpisode(['1LXtFkjw3qL'])
+# sim.newEpisode(['TbHJrupSAjP'], ['ce5a75d3715b49c5b6fe193235e52c27'], [0], [0])
 
 while True:
     state = sim.getState()[0]
@@ -114,12 +118,13 @@ while True:
     rgb = np.array(state.rgb, copy=False)
     for idx, loc in enumerate(locations[1:]):
         # Draw actions on the screen
-        fontScale = 0.75 / loc.rel_distance
+        fontScale = 0.9 / loc.rel_distance
         x = int(WIDTH / 2 + loc.rel_heading / HFOV * WIDTH)
         y = int(HEIGHT / 2 - loc.rel_elevation / VFOV * HEIGHT)
         cv2.putText(rgb, f"{idx+1}:{loc.viewpointId[:4]}", (x, y), cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale, TEXT_COLOR, thickness=1)
+                    fontScale, TEXT_COLOR, thickness=2)
     cv2.imshow('Python RGB', rgb)
+    # out.write(rgb)
     if DEPTH_ENABLED:
         depth = np.array(state.depth, copy=False)
         cv2.imshow('Python Depth', depth)
@@ -154,4 +159,5 @@ while True:
         elevation = -ANGLEDELTA
     print(f"Making action: {location}, {heading}, {elevation}")
     sim.makeAction([location], [heading], [elevation])
+# out.release()
 cv2.destroyAllWindows()

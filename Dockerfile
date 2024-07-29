@@ -34,6 +34,7 @@ RUN cmake --version
 ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
 
 # Navillm conda
+# conda create --name navillm python=3.8.16
 # pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 # pip3 install pandas networkx==2.2 opencv-contrib-python simple-colors
 # pip3 install easydict==1.10 h5py==2.10.0 jsonlines==2.0.0 lmdb==1.4.1 more_itertools==10.1.0 msgpack_numpy==0.4.8 msgpack_python==0.5.6 numpy==1.22.3 Pillow==10.1.0 progressbar33==2.4 psutil==5.9.4 PyYAML==6.0.1 ray==2.8.0 requests==2.25.1 shapely==2.0.1 timm==0.9.2 tqdm==4.64.1

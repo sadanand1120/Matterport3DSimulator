@@ -312,11 +312,29 @@ function cube_urls(scan, image_id) {
 }
 
 function move_to(image_id, isInitial=false) {
-  // Adjust cylinder visibility
+  // Adjust cylinder visibility and color
   var cylinders = cylinder_frame.children;
+  // var cc;
+  // cc = -1;
   for (var i = 0; i < cylinders.length; ++i){
     if ($('#show-instructions').is(":checked")){
       cylinders[i].visible = connections[id_to_ix[image_id]]['unobstructed'][i];
+      // if (cylinders[i].visible) {
+      //   cc = (cc + 1);
+      // }
+
+      // // Set cylinder color based on its index
+      // var color;
+      // if (cc === 0) {
+      //   color = 0xffff00; // Yellow
+      // } else if (cc === 1) {
+      //   color = 0xff0000; // Red
+      // } else if (cc === 2) {
+      //   color = 0x00ff00; // Green
+      // } else {
+      //   color = 0x0000ff; // Blue
+      // }
+      // cylinders[i].material.color.setHex(color);
     } else {
       cylinders[i].visible = false;
     }

@@ -17,3 +17,5 @@
 /thirdparty
 /tasks/R2R/tmp
 **/.vscode
+**/.clang-format
+**/mp3d_unzipped
