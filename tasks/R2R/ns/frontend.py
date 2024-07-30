@@ -13,13 +13,15 @@ os.chdir('/root/mount/Matterport3DSimulator')
 import cv2
 import torch
 import open3d as o3d
+from vllm import LLM, SamplingParams, CompletionOutput
+from typing import List, Union
 from tasks.R2R.ns.backend import *
 from thirdparty.DepthAnythingV2.metric_depth.depth_anything_v2.dpt import DepthAnythingV2
 
 GSAM = None
 
 
-def gpt4(context: str, prompt: str, temperature: float = 0.2, max_tokens: int = None, stop: str = "END", seed: int = 0) -> str:
+def gpt4(context: str, prompt: str, temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0) -> str:
     openai_client = OpenAI()
     model = "gpt-4"
     openai_response = openai_client.chat.completions.create(
@@ -34,18 +36,46 @@ def gpt4(context: str, prompt: str, temperature: float = 0.2, max_tokens: int = 
         max_tokens=max_tokens,
     )
     text = openai_response.choices[0].message.content.strip()
-    return text, openai_response  # check openai_response.choices[0].finish_reason
+    return text, openai_response.choices[0].finish_reason
 
 
-def llama3():
-    pass
+def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-405B-Instruct", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0) -> str:
+    """
+    Nexusflow/Athene-70B
+    meta-llama/Meta-Llama-3.1-8B-Instruct
+    meta-llama/Meta-Llama-3.1-70B-Instruct
+    meta-llama/Meta-Llama-3.1-405B-Instruct
+    meta-llama/Meta-Llama-3.1-405B-Instruct-FP8
+    meta-llama/Meta-Llama-3-8B-Instruct
+    meta-llama/Meta-Llama-3-70B-Instruct
+    google/gemma-2b
+    google/gemma-2b-it
+    google/gemma-7b
+    google/gemma-7b-it
+    google/gemma-2-9b
+    google/gemma-2-9b-it
+    google/gemma-2-27b
+    google/gemma-2-27b-it
+    mistralai/Mixtral-8x7B-Instruct-v0.1
+    mistralai/Mixtral-8x22B-Instruct-v0.1
+    """
+    concat_prompt = f"# Instructions: {context}\n\n# Task: {prompt}"
+    prompts = [concat_prompt]
+    sampling_params = SamplingParams(temperature=temperature,
+                                     max_tokens=max_tokens,
+                                     stop=stop,
+                                     seed=seed)
+    llm = LLM(model=model, gpu_memory_utilization=0.6)
+    outputs = llm.generate(prompts, sampling_params)
+    text = outputs[0].outputs[0].text.strip()
+    return text, outputs[0].outputs[0].finish_reason
 
 
 def blip2():
     pass
 
 
-def gpt4v(context: str, prompt: str, images: list, model: str = "gpt-4o-mini", img_detail: str = "auto", img_mode: str = "pil", temperature: float = 0.2, max_tokens: int = None, stop: str = "END", seed: int = 0) -> str:
+def gpt4v(context: str, prompt: str, images: list, model: str = "gpt-4o-mini", img_detail: str = "auto", img_mode: str = "pil", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0) -> str:
     """
     model: "gpt-4o-mini" / "gpt-4o" / "gpt-4-turbo"
     img_detail: "low" / "auto" / "high"
@@ -83,7 +113,7 @@ def gpt4v(context: str, prompt: str, images: list, model: str = "gpt-4o-mini", i
         payload.pop("max_tokens")
     openai_response = edict(requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload).json())
     text = openai_response.choices[0].message.content.strip()
-    return text, openai_response  # check openai_response.choices[0].finish_reason
+    return text, openai_response.choices[0].finish_reason
 
 
 @torch.inference_mode()
@@ -138,24 +168,36 @@ def pc_from_depth(image: cv2.imread, z: np.ndarray, vfov_deg: float = 60):
 
 if __name__ == "__main__":
     image_path = "src/driver/rgb.png"
-    pil_img = Image.open(image_path)
-    text, openai_response = gpt4v(
-        context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with 'END'.",
-        prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
-        images=[pil_img],
-        model="gpt-4o-mini",
-        img_detail="auto",
-        img_mode="pil"
-    )
+
+    # pil_img = Image.open(image_path)
+    # text, openai_response = gpt4v(
+    #     context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with 'END'.",
+    #     prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
+    #     images=[pil_img],
+    #     model="gpt-4o-mini",
+    #     img_detail="auto",
+    #     img_mode="pil"
+    # )
+    # print(text)
+    # print(openai_response.choices[0].finish_reason)
+
+    # cv2_img = cv2.imread(image_path)
+    # ann_img, *_ = groundedsam(classes=["door", "bar chairs"], image=cv2_img)
+    # cv2.imshow("Grounded SAM", ann_img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    # cv2_img = cv2.imread(image_path)
+    # dd = depth(cv2_img)
+    # cv2.imshow("Depth", (dd * 4000).astype(np.uint16))
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    # read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
+
+    text, reason = llama3(context="You are a smart agent. Answer questions as formally and comprehensively as possible. End your answers with 'END'.",
+                          prompt="What is the capital of France?",
+                          temperature=0.2,
+                          max_tokens=200,
+                          model="google/gemma-2b")
     print(text)
-    print(openai_response.choices[0].finish_reason)
-
-    cv2_img = cv2.imread(image_path)
-    groundedsam(classes=["door", "bar chairs"], image=cv2_img)
-
-    cv2_img = cv2.imread(image_path)
-    dd = depth(cv2_img)
-    cv2.imshow("Depth", (dd * 4000).astype(np.uint16))
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
+    print(reason)

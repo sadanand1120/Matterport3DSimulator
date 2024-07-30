@@ -4,7 +4,7 @@
 ARG CUDA_VERSION=11.4.2
 ARG NVIDIA_VERSION=535.183.01
 
-FROM nvidia/cudagl:${CUDA_VERSION}-devel-ubuntu18.04
+FROM docker.io/nvidia/cudagl:${CUDA_VERSION}-devel-ubuntu18.04
 
 # Install cudnn
 ENV CUDNN_VERSION 7.6.4.38
@@ -41,11 +41,9 @@ RUN cmake --version
 ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
 
 ## Navillm conda
-## note below vllm version installs pytorch 2.1.2; also cuda 11.8 packages are backwards compatible with 11.4
-# conda create --name navillm python=3.8.16
-# export VLLM_VERSION=0.4.0 && export PYTHON_VERSION=38 && pip install https://github.com/vllm-project/vllm/releases/download/v${VLLM_VERSION}/vllm-${VLLM_VERSION}+cu118-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}-manylinux1_x86_64.whl --extra-index-url https://download.pytorch.org/whl/cu118
-# pip3 install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2
-# pip3 install pandas networkx==2.2 opencv-contrib-python simple-colors
-# pip3 install easydict==1.10 h5py==2.10.0 jsonlines==2.0.0 lmdb==1.4.1 more_itertools==10.1.0 msgpack_numpy==0.4.8 msgpack_python==0.5.6 numpy==1.22.3 Pillow==10.1.0 progressbar33==2.4 psutil==5.9.4 PyYAML==6.0.1 ray==2.8.0 requests==2.25.1 shapely==2.0.1 timm==0.9.2 tqdm==4.64.1
-# pip3 install transformers==4.28.0 sentencepiece==0.1.99
+# conda create --name navillm python=3.10
+# pip3 install vllm torch==2.3.1 torchvision==0.18.1 --extra-index-url https://download.pytorch.org/whl/cu118
+# pip3 install pandas networkx opencv-contrib-python simple-colors
+# pip3 install easydict==1.10 h5py jsonlines lmdb more_itertools==10.1.0 msgpack_numpy msgpack_python numpy Pillow progressbar33 psutil PyYAML ray requests shapely timm tqdm
+# pip3 install transformers sentencepiece
 # pip3 install ipdb openai supervision==0.6.0 open3d
