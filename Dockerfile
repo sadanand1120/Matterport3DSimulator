@@ -41,6 +41,9 @@ RUN cmake --version
 ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
 
 ## Navillm conda
+# curl -O https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
+# bash Anaconda3-2024.06-1-Linux-x86_64.sh
+# conda config --set auto_activate_base False
 # conda create --name navillm python=3.10
 # pip3 install vllm torch==2.3.1 torchvision==0.18.1 --extra-index-url https://download.pytorch.org/whl/cu118
 # pip3 install pandas networkx opencv-contrib-python simple-colors

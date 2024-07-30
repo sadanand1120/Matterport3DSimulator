@@ -65,7 +65,7 @@ def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-40
                                      max_tokens=max_tokens,
                                      stop=stop,
                                      seed=seed)
-    llm = LLM(model=model, gpu_memory_utilization=0.6)
+    llm = LLM(model=model, gpu_memory_utilization=0.9, trust_remote_code=True)
     outputs = llm.generate(prompts, sampling_params)
     text = outputs[0].outputs[0].text.strip()
     return text, outputs[0].outputs[0].finish_reason
