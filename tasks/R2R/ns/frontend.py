@@ -37,6 +37,14 @@ def gpt4(context: str, prompt: str, temperature: float = 0.2, max_tokens: int = 
     return text, openai_response  # check openai_response.choices[0].finish_reason
 
 
+def llama3():
+    pass
+
+
+def blip2():
+    pass
+
+
 def gpt4v(context: str, prompt: str, images: list, model: str = "gpt-4o-mini", img_detail: str = "auto", img_mode: str = "pil", temperature: float = 0.2, max_tokens: int = None, stop: str = "END", seed: int = 0) -> str:
     """
     model: "gpt-4o-mini" / "gpt-4o" / "gpt-4-turbo"
@@ -109,6 +117,7 @@ def depth(image: cv2.imread):
     return depth
 
 
+@torch.inference_mode()
 def pc_from_depth(image: cv2.imread, z: np.ndarray, vfov_deg: float = 60):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     H, W = z.shape
@@ -129,24 +138,24 @@ def pc_from_depth(image: cv2.imread, z: np.ndarray, vfov_deg: float = 60):
 
 if __name__ == "__main__":
     image_path = "src/driver/rgb.png"
-    # pil_img = Image.open(image_path)
-    # text, openai_response = gpt4v(
-    #     context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with 'END'.",
-    #     prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
-    #     images=[pil_img],
-    #     model="gpt-4o-mini",
-    #     img_detail="auto",
-    #     img_mode="pil"
-    # )
-    # print(text)
-    # print(openai_response.choices[0].finish_reason)
+    pil_img = Image.open(image_path)
+    text, openai_response = gpt4v(
+        context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with 'END'.",
+        prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
+        images=[pil_img],
+        model="gpt-4o-mini",
+        img_detail="auto",
+        img_mode="pil"
+    )
+    print(text)
+    print(openai_response.choices[0].finish_reason)
 
-    # cv2_img = cv2.imread(image_path)
-    # groundedsam(classes=["door", "bar chairs"], image=cv2_img)
+    cv2_img = cv2.imread(image_path)
+    groundedsam(classes=["door", "bar chairs"], image=cv2_img)
 
     cv2_img = cv2.imread(image_path)
     dd = depth(cv2_img)
-    cv2.imshow("Depth", (dd*4000).astype(np.uint16))
+    cv2.imshow("Depth", (dd * 4000).astype(np.uint16))
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
