@@ -40,13 +40,31 @@ RUN cmake --version
 
 ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
 
-## Navillm conda
+## Navillm + VLLM conda environment
 # curl -O https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh
 # bash Anaconda3-2024.06-1-Linux-x86_64.sh
 # conda config --set auto_activate_base False
+### setup following env vars:
+    # export OPENAI_API_KEY="<key>"  # UTCS AMRL OpenAI API key
+    # export HF_API_KEY="<key>"  # Huggingface
+    # export TF_CPP_MIN_LOG_LEVEL='2'
+    # alias cleanpycache='find . -type d -name "__pycache__" -exec rm -r {} + 2>/dev/null'
+    # export AM_I_DOCKER=False
+    # export BUILD_WITH_CUDA=True
+    # export CUDA_HOME=/usr/local/cuda/
+    # export MAX_JOBS=6
+    # export PATH="${CUDA_HOME}/bin:$PATH"
+    # export VLLM_NCCL_SO_PATH=/usr/lib/x86_64-linux-gnu/libnccl.so.2
+    # export VLLM_WORKER_MULTIPROC_METHOD=spawn
+    # export VLLM_LOGGING_LEVEL=ERROR
 # conda create --name navillm python=3.10
-# pip3 install vllm torch==2.3.1 torchvision==0.18.1 --extra-index-url https://download.pytorch.org/whl/cu118
+# pip3 install xformers --index-url https://download.pytorch.org/whl/cu118
+# pip3 install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --extra-index-url https://download.pytorch.org/whl/cu118
+# pip3 install packaging
+# pip3 install flashinfer -i https://flashinfer.ai/whl/cu118/torch2.4
+### Run "pip install -e ." in VLLM directory
 # pip3 install pandas networkx opencv-contrib-python simple-colors
 # pip3 install easydict==1.10 h5py jsonlines lmdb more_itertools==10.1.0 msgpack_numpy msgpack_python numpy Pillow progressbar33 psutil PyYAML ray requests shapely timm tqdm
 # pip3 install transformers sentencepiece
 # pip3 install ipdb openai supervision==0.6.0 open3d
+# huggingface-cli login --token $HF_API_KEY
