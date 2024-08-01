@@ -42,7 +42,7 @@ def gpt4(context: str, prompt: str, model: str = "gpt-4", temperature: float = 0
 
 
 def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70B-Instruct", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0,
-           gpu_memory_utilization: float = 0.9, num_gpus: int = 4) -> str:
+           gpu_memory_utilization: float = 0.9, num_gpus: int = 2) -> str:
     """
     Nexusflow/Athene-70B
     meta-llama/Meta-Llama-3.1-8B-Instruct
@@ -62,6 +62,7 @@ def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70
     mistralai/Mixtral-8x7B-Instruct-v0.1
     mistralai/Mixtral-8x22B-Instruct-v0.1
     """
+    os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
     llama3_prompt = f"<|begin_of_text|><|start_header_id|>system<|end_header_id|> \
                     {context}<|eot_id|><|start_header_id|>user<|end_header_id|> \
                     {prompt}<|eot_id|> \
@@ -78,11 +79,60 @@ def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70
               max_num_seqs=1)
     outputs = llm.generate(prompts, sampling_params)
     text = outputs[0].outputs[0].text.strip()
+    if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
+        del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
     return text, outputs[0].outputs[0].finish_reason
 
 
-def blip2():
-    pass
+def internvl2(context: str, prompt: str, image: PIL.Image, model: str = "OpenGVLab/InternVL2-4B", model_type: str = "internvl2", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0,
+              gpu_memory_utilization: float = 0.9, num_gpus: int = 2) -> str:
+    """
+    Salesforce/blip2-opt-2.7b
+    Salesforce/blip2-opt-6.7b
+    Salesforce/blip2-flan-t5-xl
+    Salesforce/blip2-flan-t5-xxl
+    OpenGVLab/InternVL2-Llama3-76B
+    OpenGVLab/InternVL2-40B
+    OpenGVLab/InternVL2-26B
+    OpenGVLab/InternVL2-8B
+    OpenGVLab/InternVL2-4B
+    llava-hf/llava-next-110b-hf
+    llava-hf/llava-next-72b-hf
+    llava-hf/llava-v1.6-34b-hf
+    llava-hf/llava-v1.6-mistral-7b-hf
+    """
+    os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
+    question = f"{context}\n\n{prompt}"
+    image = image.convert("RGB")
+    prompts = {    # use <image> tag to indicate the image
+        "llavanext": f"[INST] <image>\n{question} [/INST]",
+        "internvl2": f"<|im_start|>User\n<image>\n{question}\n<|im_end|>\n<|im_start|>Assistant\n",
+        "blip2": f"Question: {question} Answer:",
+    }
+    if type(stop) == str:
+        stop = [stop, "<|end|>"]   # stop token for internvl2 is <|end|>
+    else:
+        stop.append("<|end|>")
+    sampling_params = SamplingParams(temperature=temperature,
+                                     max_tokens=max_tokens,
+                                     stop=stop,
+                                     seed=seed)
+    llm = LLM(model=model,
+              gpu_memory_utilization=gpu_memory_utilization,
+              trust_remote_code=True,
+              tensor_parallel_size=num_gpus,
+              max_num_seqs=1)
+    inputs = {
+        "prompt": prompts[model_type],
+        "multi_modal_data": {
+            "image": image
+        },
+    }
+    outputs = llm.generate(inputs, sampling_params=sampling_params)
+    text = outputs[0].outputs[0].text.strip()
+    if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
+        del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
+    return text, outputs[0].outputs[0].finish_reason
 
 
 def gpt4v(context: str, prompt: str, images: list, model: str = "gpt-4o-mini", img_detail: str = "auto", img_mode: str = "pil", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0) -> str:
@@ -204,9 +254,22 @@ if __name__ == "__main__":
     # cv2.destroyAllWindows()
     # read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
 
-    text, reason = llama3(context="You are a helpful agent. Answer questions as formally and comprehensively as possible. End your answers with END token.",
-                          prompt="What is the capital of France? Sydney?",
-                          temperature=0.2,
-                          max_tokens=200)
+    # text, reason = llama3(context="You are a helpful agent. Answer questions as formally and comprehensively as possible. End your answers with END token.",
+    #                       prompt="What is the capital of France? Sydney?",
+    #                       temperature=0.2,
+    #                       max_tokens=200,
+    #                       num_gpus=4,
+    #                       gpu_memory_utilization=0.9,
+    #                       model="meta-llama/Meta-Llama-3.1-8B-Instruct")
+    # print(text)
+    # print(reason)
+
+    text, fr = internvl2(context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with END token.",
+                         prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
+                         image=Image.open(image_path),
+                         model="OpenGVLab/InternVL2-4B",
+                         model_type="internvl2",
+                         max_tokens=600,
+                         num_gpus=4)
     print(text)
-    print(reason)
+    print(fr)

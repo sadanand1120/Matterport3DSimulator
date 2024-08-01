@@ -55,7 +55,6 @@ ENV PYTHONPATH=/root/mount/Matterport3DSimulator/build
     # export MAX_JOBS=6
     # export PATH="${CUDA_HOME}/bin:$PATH"
     # export VLLM_NCCL_SO_PATH=/usr/lib/x86_64-linux-gnu/libnccl.so.2
-    # export VLLM_WORKER_MULTIPROC_METHOD=spawn
     # export VLLM_LOGGING_LEVEL=ERROR
 # conda create --name navillm python=3.10
 # pip3 install xformers --index-url https://download.pytorch.org/whl/cu118
