@@ -14,8 +14,8 @@ from torch.autograd import Variable
 from torch import optim
 import torch.nn.functional as F
 
-from env import R2RBatch
-from utils import padding_idx
+from tasks.R2R.env import R2RBatch
+from tasks.R2R.utils import padding_idx
 
 class BaseAgent(object):
     ''' Base class for an R2R agent to generate and save trajectories. '''

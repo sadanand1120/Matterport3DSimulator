@@ -4,7 +4,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
-from eval import Evaluation
+from tasks.R2R.eval import Evaluation
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 

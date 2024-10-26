@@ -12,7 +12,7 @@ import random
 import numpy as np
 import networkx as nx
 
-from utils import load_datasets, load_nav_graphs
+from tasks.R2R.utils import load_datasets, load_nav_graphs
 
 csv.field_size_limit(sys.maxsize)
 

@@ -31,6 +31,7 @@ from tasks.R2R.model import EncoderLSTM, AttnDecoderLSTM
 from tasks.R2R.eval import Evaluation
 from copy import deepcopy
 from simple_colors import green
+from tqdm import tqdm
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 TRAINVAL_VOCAB = 'tasks/R2R/data/trainval_vocab.txt'
@@ -202,8 +203,8 @@ if __name__ == "__main__":
     os.makedirs(_TMP_DIR, exist_ok=True)
     os.makedirs(_OUTPUT_DIR, exist_ok=True)
 
-    for split in ['train', 'val_seen', 'val_unseen']:
-        # r2r_seq2seq(split)
-        navillm(split, use_buildpreds=True)
+    for split in tqdm(['val_seen']):
+        r2r_seq2seq(split)
+        # navillm(split, use_buildpreds=False)
 
     shutil.rmtree(_TMP_DIR, ignore_errors=True)

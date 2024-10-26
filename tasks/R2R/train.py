@@ -11,11 +11,11 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 
-from utils import read_vocab,write_vocab,build_vocab,Tokenizer,padding_idx,timeSince
-from env import R2RBatch
-from model import EncoderLSTM, AttnDecoderLSTM
-from agent import Seq2SeqAgent
-from eval import Evaluation
+from tasks.R2R.utils import read_vocab,write_vocab,build_vocab,Tokenizer,padding_idx,timeSince
+from tasks.R2R.env import R2RBatch
+from tasks.R2R.model import EncoderLSTM, AttnDecoderLSTM
+from tasks.R2R.agent import Seq2SeqAgent
+from tasks.R2R.eval import Evaluation
 
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'

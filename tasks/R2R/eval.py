@@ -12,11 +12,11 @@ import ipdb
 import torch
 pp = pprint.PrettyPrinter(indent=4)
 
-from env import R2RBatch
-from utils import load_datasets, load_nav_graphs
-from agent import BaseAgent, StopAgent, RandomAgent, ShortestAgent, Seq2SeqAgent
-from utils import read_vocab, write_vocab, build_vocab, Tokenizer, padding_idx, timeSince
-from model import EncoderLSTM, AttnDecoderLSTM
+from tasks.R2R.env import R2RBatch
+from tasks.R2R.utils import load_datasets, load_nav_graphs
+from tasks.R2R.agent import BaseAgent, StopAgent, RandomAgent, ShortestAgent, Seq2SeqAgent
+from tasks.R2R.utils import read_vocab, write_vocab, build_vocab, Tokenizer, padding_idx, timeSince
+from tasks.R2R.model import EncoderLSTM, AttnDecoderLSTM
 from simple_colors import red, green
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
@@ -173,3 +173,4 @@ def eval_seq2seq():
 if __name__ == '__main__':
     # eval_simple_agents()
     # eval_seq2seq()
+    pass
