@@ -61,7 +61,7 @@ def eval_from_json(split, json_filepath):
     ev = Evaluation([split])
     score_summary, scores = ev.score(json_filepath)
     score_summary['total_num_instr'] = len(ev.scores_dict)
-    print(green('\n%s' % json_filepath, 'bold'))
+    print(green(os.path.basename(json_filepath), 'bold'))
     pp.pprint(score_summary)
     return ev, score_summary
 
