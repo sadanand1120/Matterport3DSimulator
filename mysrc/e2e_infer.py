@@ -66,6 +66,7 @@ def eval_from_json(split, json_filepath):
 
 
 def save_results_scores(split, tmpfile, method_name, data):
+    ''' Save the results and scores to disk. '''
     # generating scores
     ev, score_summary = eval_from_json(split, tmpfile)
 
@@ -79,8 +80,7 @@ def save_results_scores(split, tmpfile, method_name, data):
         traj = pred['trajectory']
         new_preds[instr_id] = traj
     data_and_preds = []
-    compact_data_and_preds = []
-    compact_data_and_preds.append(score_summary)
+    data_and_preds.append(score_summary)
     for d in data:
         ins = d['instructions']
         for i, inst in enumerate(ins):
@@ -98,21 +98,9 @@ def save_results_scores(split, tmpfile, method_name, data):
                     "instruction": inst,
                     "metrics": ev.scores_dict[instr_id],
                 })
-                compact_data_and_preds.append({
-                    "instruction": inst,
-                    "instr_id": instr_id,
-                    "success": ev.scores_dict[instr_id]['success'],
-                    "oracle_success": ev.scores_dict[instr_id]['oracle_success'],
-                    "spl": ev.scores_dict[instr_id]['spl'],
-                    "gt_path": d["path"],
-                    "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
-                })
     outfile = os.path.join(_OUTPUT_DIR, f"{method_name}_{split}.json")
-    compact_outfile = os.path.join(_OUTPUT_DIR, "compact", f"{method_name}_{split}_compact.json")
     with open(outfile, 'w') as f:
         json.dump(data_and_preds, f, indent=4)
-    with open(compact_outfile, 'w') as f:
-        json.dump(compact_data_and_preds, f, indent=4)
 
 
 def r2r_seq2seq(split):
@@ -211,9 +199,8 @@ if __name__ == "__main__":
     # eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
     
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
-    os.makedirs(_OUTPUT_DIR, exist_ok=True)
-    os.makedirs(os.path.join(_OUTPUT_DIR, "compact"), exist_ok=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
+    os.makedirs(_OUTPUT_DIR, exist_ok=True)
 
     for split in ['train', 'val_seen', 'val_unseen']:
         # r2r_seq2seq(split)
