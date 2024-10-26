@@ -22,10 +22,11 @@ from simple_colors import red, green
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 TRAINVAL_VOCAB = 'tasks/R2R/data/trainval_vocab.txt'
 RESULT_DIR = 'tasks/R2R/results/'
-SNAPSHOT_DIR = 'tasks/R2R/snapshots/'
+SNAPSHOT_DIR = 'mysrc/snapshots/'
 PLOT_DIR = 'tasks/R2R/plots/'
 IMAGENET_FEATURES = 'img_features/ResNet-152-imagenet.tsv'
 MAX_INPUT_LENGTH = 80
+
 
 class Evaluation(object):
     ''' Results submission format:  [{'instr_id': string, 'trajectory':[(viewpoint_id, heading_rads, elevation_rads),] } ] '''
@@ -39,12 +40,12 @@ class Evaluation(object):
         for item in load_datasets(splits):
             self.gt[item['path_id']] = item
             self.scans.append(item['scan'])
-            self.instr_ids += ['%d_%d' % (item['path_id'],i) for i in range(len(item['instructions']))]
+            self.instr_ids += ['%d_%d' % (item['path_id'], i) for i in range(len(item['instructions']))]
         self.scans = set(self.scans)
         self.instr_ids = set(self.instr_ids)
         self.graphs = load_nav_graphs(self.scans)
         self.distances = {}
-        for scan,G in self.graphs.items(): # compute all shortest paths
+        for scan, G in self.graphs.items():  # compute all shortest paths
             self.distances[scan] = dict(nx.all_pairs_dijkstra_path_length(G))
         self.scores_dict = dict()
 
@@ -70,16 +71,16 @@ class Evaluation(object):
         nearest_position = self._get_nearest(gt['scan'], goal, path)
         self.scores['nav_errors'].append(self.distances[gt['scan']][final_position][goal])
         self.scores['oracle_errors'].append(self.distances[gt['scan']][nearest_position][goal])
-        distance = 0 # Work out the length of the path in meters
+        distance = 0  # Work out the length of the path in meters
         prev = path[0]
         for curr in path[1:]:
             if prev[0] != curr[0]:
                 try:
                     self.graphs[gt['scan']][prev[0]][curr[0]]
                 except KeyError as err:
-                    print('Error: The provided trajectory moves from %s to %s but the navigation graph contains no '\
-                        'edge between these viewpoints. Please ensure the provided navigation trajectories '\
-                        'are valid, so that trajectory length can be accurately calculated.' % (prev[0], curr[0]))
+                    print('Error: The provided trajectory moves from %s to %s but the navigation graph contains no '
+                          'edge between these viewpoints. Please ensure the provided navigation trajectories '
+                          'are valid, so that trajectory length can be accurately calculated.' % (prev[0], curr[0]))
                     raise
             distance += self.distances[gt['scan']][prev[0]][curr[0]]
             prev = curr
@@ -102,27 +103,27 @@ class Evaluation(object):
                 if item['instr_id'] in instr_ids:
                     instr_ids.remove(item['instr_id'])
                     self._score_item(item['instr_id'], item['trajectory'])
-        assert len(instr_ids) == 0, 'Trajectories not provided for %d instruction ids: %s' % (len(instr_ids),instr_ids)
+        assert len(instr_ids) == 0, 'Trajectories not provided for %d instruction ids: %s' % (len(instr_ids), instr_ids)
         assert len(self.scores['nav_errors']) == len(self.instr_ids)
         num_successes = len([i for i in self.scores['nav_errors'] if i < self.error_margin])
 
         oracle_successes = len([i for i in self.scores['oracle_errors'] if i < self.error_margin])
 
         spls = []
-        for err,length,sp in zip(self.scores['nav_errors'],self.scores['trajectory_lengths'],self.scores['shortest_path_lengths']):
+        for err, length, sp in zip(self.scores['nav_errors'], self.scores['trajectory_lengths'], self.scores['shortest_path_lengths']):
             if err < self.error_margin:
-                spls.append(sp/max(length,sp))
+                spls.append(sp / max(length, sp))
             else:
                 spls.append(0)
 
-        score_summary ={
+        score_summary = {
             'length': np.average(self.scores['trajectory_lengths']),
             'nav_error': np.average(self.scores['nav_errors']),
-            'oracle success_rate': float(oracle_successes)/float(len(self.scores['oracle_errors'])),
-            'success_rate': float(num_successes)/float(len(self.scores['nav_errors'])),
+            'oracle success_rate': float(oracle_successes) / float(len(self.scores['oracle_errors'])),
+            'success_rate': float(num_successes) / float(len(self.scores['nav_errors'])),
             'spl': np.average(spls)
         }
-        
+
         for idx in self.scores_dict.keys():
             suc = 1 if self.scores_dict[idx]['nav_error'] < self.error_margin else 0
             oracle_suc = 1 if self.scores_dict[idx]['oracle_error'] < self.error_margin else 0
@@ -137,10 +138,11 @@ class Evaluation(object):
         assert score_summary['spl'] <= score_summary['success_rate']
         return score_summary, self.scores
 
+
 def eval_simple_agents():
     ''' Run simple baselines on each split. '''
     for split in ['train', 'val_seen', 'val_unseen']:
-    # for split in ['val_seen', 'my_val_seen']:
+        # for split in ['val_seen', 'my_val_seen']:
         env = R2RBatch(None, batch_size=1, splits=[split])
         ev = Evaluation([split])
 
@@ -168,65 +170,6 @@ def eval_seq2seq():
             pp.pprint(score_summary)
 
 
-def save_json_encodings(split):
-    ''' Extract the instruction encodings from a json file. '''
-    print('Saving instruction encodings for %s' % split)
-    from transformers import AutoTokenizer
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-    new_data = []
-    for item in load_datasets([split]):
-        new_item = dict(item)
-        new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
-        new_data.append(new_item)
-    with open('tasks/R2R/data/R2R_%s_enc.json' % split, 'w') as f:
-        json.dump(new_data, f, indent=4)
-
-
-def eval_from_json(split, json_filepath):
-    ''' Evaluate a json file of agent trajectories. '''
-    ev = Evaluation([split])
-    score_summary, scores = ev.score(json_filepath)
-    # ipdb.set_trace()
-    print(green('\n%s' % json_filepath, 'bold'))
-    pp.pprint(score_summary)
-
-
-def load_eval_seq2seq():
-    vocab = read_vocab(TRAIN_VOCAB)
-    tok = Tokenizer(vocab=vocab, encoding_length=MAX_INPUT_LENGTH)
-    enc_hidden_size = 512 // 2 if False else 512
-    encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx,
-                          0.5, bidirectional=False)
-    encoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_enc_iter_20000', map_location='cuda'))
-    encoder = encoder.cuda()
-    decoder = AttnDecoderLSTM(Seq2SeqAgent.n_inputs(), Seq2SeqAgent.n_outputs(),
-                              32, 512, 0.5)
-    decoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_dec_iter_20000', map_location='cuda'))
-    decoder = decoder.cuda()
-    for split in ['train', 'val_seen', 'val_unseen']:
-        env = R2RBatch(IMAGENET_FEATURES, batch_size=40, splits=[split], tokenizer=tok)
-        ev = Evaluation([split])
-        outfile = '%s%s_%s_agent.json' % (RESULT_DIR, split, 'seq2seq_final'.lower())
-        agent = Seq2SeqAgent(env, outfile, encoder, decoder, 20)
-        agent.test(use_dropout=False, feedback='argmax')
-        agent.write_results()
-        score_summary, _ = ev.score(outfile)
-        print(green('\n%s' % f'seq2seq_final {split}', 'bold'))
-        pp.pprint(score_summary)
-
-
 if __name__ == '__main__':
     # eval_simple_agents()
     # eval_seq2seq()
-    
-    # load_eval_seq2seq()
-    # eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
-    # save_json_encodings('val_seen')
-    save_json_encodings('val_unseen_reduced')
-    # save_json_encodings('test')
-    # save_json_encodings('my_val_seen')
-    # save_json_encodings('my_val_seen_modified')
-    # eval_from_json('my_val_seen', 'third_party/NaviLLM/build/eval/R2R_my_val_seen.json')
-    # eval_from_json('my_val_seen_modified', 'third_party/NaviLLM/build/eval/R2R_my_val_seen_modified.json')
-    # eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
-    # eval_from_json('my_val_seen_modified', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_modified_seq2seq_final_agent.json')

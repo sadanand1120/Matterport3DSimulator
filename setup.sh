@@ -33,3 +33,10 @@ echo "Running test 1"
 ./build/tests ~Timing
 echo "Running test 2"
 ./build/tests Timing
+
+# GroundedSAM setup
+conda deactivate
+conda activate vllm
+cd /root/mount/Matterport3DSimulator/thirdparty/Grounded-Segment-Anything
+python3 -m pip install -e segment_anything
+pip3 install --no-build-isolation -e GroundingDINO

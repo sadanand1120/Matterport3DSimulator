@@ -23,20 +23,21 @@ import pprint
 import torch
 pp = pprint.PrettyPrinter(indent=4)
 
-from env import R2RBatch
-from agent import Seq2SeqAgent
-from utils import read_vocab, Tokenizer, padding_idx
-from model import EncoderLSTM, AttnDecoderLSTM
-from simple_colors import green
-from eval import Evaluation
+from tasks.R2R.env import R2RBatch
+from tasks.R2R.agent import Seq2SeqAgent
+from tasks.R2R.utils import read_vocab, Tokenizer, padding_idx
+from tasks.R2R.model import EncoderLSTM, AttnDecoderLSTM
+from tasks.R2R.eval import Evaluation
 from copy import deepcopy
+from simple_colors import green
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 IMAGENET_FEATURES = 'img_features/ResNet-152-imagenet.tsv'
+SNAPSHOTS_DIR_R2R = 'mysrc/snapshots'
 MAX_INPUT_LENGTH = 80
 _DATA_PATH = "tasks/R2R/data/"
-_OUTPUT_DIR = "tasks/R2R/infer/"
-_TMP_DIR = "tasks/R2R/tmp/"
+_OUTPUT_DIR = "mysrc/infer/"
+_TMP_DIR = "mysrc/tmp/"
 
 def r2r_seq2seq(split):
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
@@ -50,11 +51,11 @@ def r2r_seq2seq(split):
     enc_hidden_size = 512 // 2 if False else 512
     encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx,
                           0.5, bidirectional=False)
-    encoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_enc_iter_20000', map_location='cuda'))
+    encoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_enc_iter_20000'), map_location='cuda'))
     encoder = encoder.cuda()
     decoder = AttnDecoderLSTM(Seq2SeqAgent.n_inputs(), Seq2SeqAgent.n_outputs(),
                               32, 512, 0.5)
-    decoder.load_state_dict(torch.load('tasks/R2R/snapshots/seq2seq_sample_imagenet_train_dec_iter_20000', map_location='cuda'))
+    decoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_dec_iter_20000'), map_location='cuda'))
     decoder = decoder.cuda()
     env = R2RBatch(IMAGENET_FEATURES, batch_size=40 if len(data) > 40 else len(data), splits=[split], tokenizer=tok)
     tmpfile = os.path.join(_TMP_DIR, f"r2r_seq2seq_{split}.json")
@@ -115,6 +116,7 @@ def r2r_seq2seq(split):
         json.dump(compact_data_and_preds, f, indent=4)
 
 def navillm(split, use_buildpreds=False):
+    # DO NOT RUN on multiple nodes in parallel, only use nnodes=1 and nproc_per_node=1
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
     with open(input_jsonpath) as f:
@@ -141,6 +143,7 @@ def navillm(split, use_buildpreds=False):
                 '--master_port', '41000', 
                 'train.py',
                 '--stage', 'multi', 
+                '--seed', '0',
                 '--mode', 'test', 
                 '--data_dir', 'data', 
                 '--cfg_file', 'configs/multi.yaml',

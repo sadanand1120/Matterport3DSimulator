@@ -15,7 +15,7 @@ import torch
 import open3d as o3d
 from vllm import LLM, SamplingParams, CompletionOutput
 from typing import List, Union
-from tasks.R2R.ns.backend import *
+from mysrc.backend import *
 from thirdparty.DepthAnythingV2.metric_depth.depth_anything_v2.dpt import DepthAnythingV2
 
 GSAM = None
@@ -227,7 +227,7 @@ def pc_from_depth(image: cv2.imread, z: np.ndarray, vfov_deg: float = 60):
 
 
 if __name__ == "__main__":
-    image_path = "src/driver/rgb.png"
+    image_path = "teaser.jpg"
 
     # pil_img = Image.open(image_path)
     # text, finish_reason = gpt4v(
