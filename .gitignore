@@ -11,12 +11,7 @@
 *.pyc
 *.out
 *.zip
-/tasks/R2R/results/*
-/tasks/R2R/snapshots/*
-/tasks/R2R/plots/*
 /thirdparty
-/tasks/R2R/tmp
 **/.vscode
 **/.clang-format
 **/mp3d_unzipped
-**/*.mp4
