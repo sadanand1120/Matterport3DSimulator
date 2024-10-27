@@ -1,0 +1,1867 @@
+[
+    {
+        "length": 16.52059863377504,
+        "nav_error": 2.21508424983053,
+        "oracle success_rate": 0.9583333333333334,
+        "success_rate": 0.7083333333333334,
+        "spl": 0.6812980513832644,
+        "total_num_instr": 24
+    },
+    {
+        "instr_id": "6440_0",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "go straight to the door then turn right. ",
+        "path_id": 6440,
+        "gt_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43"
+        ],
+        "pred_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43",
+            "a24affdd623444d598e6b96b096152fe"
+        ],
+        "distance": 10.66,
+        "heading": 1.796,
+        "metrics": {
+            "nav_error": 1.9990312739327019,
+            "oracle_error": 0,
+            "trajectory_length": 12.662023108064208,
+            "shortest_path_length": 10.662991834131507,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.8421238646563869
+        },
+        "trajectory": [
+            [
+                "caf7c76c38a94f02943720cde114cc4f",
+                0,
+                0
+            ],
+            [
+                "414195b76186408b81db63defa6b8d83",
+                0,
+                0
+            ],
+            [
+                "d30cfd0e67de459bb27053a7682c0104",
+                0,
+                0
+            ],
+            [
+                "e049cbd79d51410e91b09ab7fd2074ec",
+                0,
+                0
+            ],
+            [
+                "3cdccfc437a14153939cf51089407b43",
+                0,
+                0
+            ],
+            [
+                "a24affdd623444d598e6b96b096152fe",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "6440_1",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk past the shelves and out of the garage. Stop in front of the opening to the wine cellar. ",
+        "path_id": 6440,
+        "gt_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43"
+        ],
+        "pred_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43",
+            "a24affdd623444d598e6b96b096152fe"
+        ],
+        "distance": 10.66,
+        "heading": 1.796,
+        "metrics": {
+            "nav_error": 1.9990312739327019,
+            "oracle_error": 0,
+            "trajectory_length": 12.662023108064208,
+            "shortest_path_length": 10.662991834131507,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.8421238646563869
+        },
+        "trajectory": [
+            [
+                "caf7c76c38a94f02943720cde114cc4f",
+                0,
+                0
+            ],
+            [
+                "414195b76186408b81db63defa6b8d83",
+                0,
+                0
+            ],
+            [
+                "d30cfd0e67de459bb27053a7682c0104",
+                0,
+                0
+            ],
+            [
+                "e049cbd79d51410e91b09ab7fd2074ec",
+                0,
+                0
+            ],
+            [
+                "3cdccfc437a14153939cf51089407b43",
+                0,
+                0
+            ],
+            [
+                "a24affdd623444d598e6b96b096152fe",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "6440_2",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "With the storage lockers to your right, exit the garage via the door that's ahead of you and against the right hand wall. After exiting the garage, turn right ninety degrees and move forward until arched doorway is to your immediate right. ",
+        "path_id": 6440,
+        "gt_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43"
+        ],
+        "pred_path": [
+            "caf7c76c38a94f02943720cde114cc4f",
+            "414195b76186408b81db63defa6b8d83",
+            "d30cfd0e67de459bb27053a7682c0104",
+            "e049cbd79d51410e91b09ab7fd2074ec",
+            "3cdccfc437a14153939cf51089407b43",
+            "a24affdd623444d598e6b96b096152fe"
+        ],
+        "distance": 10.66,
+        "heading": 1.796,
+        "metrics": {
+            "nav_error": 1.9990312739327019,
+            "oracle_error": 0,
+            "trajectory_length": 12.662023108064208,
+            "shortest_path_length": 10.662991834131507,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.8421238646563869
+        },
+        "trajectory": [
+            [
+                "caf7c76c38a94f02943720cde114cc4f",
+                0,
+                0
+            ],
+            [
+                "414195b76186408b81db63defa6b8d83",
+                0,
+                0
+            ],
+            [
+                "d30cfd0e67de459bb27053a7682c0104",
+                0,
+                0
+            ],
+            [
+                "e049cbd79d51410e91b09ab7fd2074ec",
+                0,
+                0
+            ],
+            [
+                "3cdccfc437a14153939cf51089407b43",
+                0,
+                0
+            ],
+            [
+                "a24affdd623444d598e6b96b096152fe",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2365_0",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Turn, putting the exit of the building  on your left. Walk to the end of the entrance way and turn left. Travel across the kitchen area with the counter and chairs on your right. Continue straight until you reach the dining room. Enter the room and stop and wait one meter from the closest end of the long dining table. ",
+        "path_id": 2365,
+        "gt_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "f1073371a7f44247a97f8c811c231676",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "pred_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "041abeb88f4d4a9cb085e359686aa9ed",
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "44c1bb13d8df4ee0aec67f1ac63521d4",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "distance": 15.93,
+        "heading": 4.613,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 16.244651412610338,
+            "shortest_path_length": 15.926851298118617,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9804366307149551
+        },
+        "trajectory": [
+            [
+                "75ff3e14cc414e0e80e81f036520aedf",
+                0,
+                0
+            ],
+            [
+                "041abeb88f4d4a9cb085e359686aa9ed",
+                0,
+                0
+            ],
+            [
+                "b882d05cc8d842879c647824f537a17c",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "44c1bb13d8df4ee0aec67f1ac63521d4",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "57badf7fa7514fbaa937b5934cb3c0d4",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2365_1",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Go down hallway towards the two white vases. When you have a staircase towards your right, turn left towards the dining room. Go past bar lined with chairs and wait in front of the long dining room table. ",
+        "path_id": 2365,
+        "gt_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "f1073371a7f44247a97f8c811c231676",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "pred_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "f1073371a7f44247a97f8c811c231676",
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "44c1bb13d8df4ee0aec67f1ac63521d4",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "distance": 15.93,
+        "heading": 4.613,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 16.456095596695075,
+            "shortest_path_length": 15.926851298118617,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9678390116618703
+        },
+        "trajectory": [
+            [
+                "75ff3e14cc414e0e80e81f036520aedf",
+                0,
+                0
+            ],
+            [
+                "f1073371a7f44247a97f8c811c231676",
+                0,
+                0
+            ],
+            [
+                "b882d05cc8d842879c647824f537a17c",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "44c1bb13d8df4ee0aec67f1ac63521d4",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "57badf7fa7514fbaa937b5934cb3c0d4",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2365_2",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk past the two urns and turn left. Walk to the entrance of the dining room, straight ahead, and stop under the arch. ",
+        "path_id": 2365,
+        "gt_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "f1073371a7f44247a97f8c811c231676",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "pred_path": [
+            "75ff3e14cc414e0e80e81f036520aedf",
+            "f1073371a7f44247a97f8c811c231676",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "44c1bb13d8df4ee0aec67f1ac63521d4",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "distance": 15.93,
+        "heading": 4.613,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 15.939041363877829,
+            "shortest_path_length": 15.926851298118617,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9992352070942712
+        },
+        "trajectory": [
+            [
+                "75ff3e14cc414e0e80e81f036520aedf",
+                0,
+                0
+            ],
+            [
+                "f1073371a7f44247a97f8c811c231676",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "44c1bb13d8df4ee0aec67f1ac63521d4",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "57badf7fa7514fbaa937b5934cb3c0d4",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "239_0",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Face the walkway with a kitchen counter with bar stools on the right and large windows on the other side and walk past them towards a large dining table  Turn to the sitting area and stop. ",
+        "path_id": 239,
+        "gt_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4",
+            "fc4189783106499da4e9dd0a20636c4e"
+        ],
+        "pred_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "44c1bb13d8df4ee0aec67f1ac63521d4",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "232e797493674e19a8016e626665b8b0",
+            "8bc71dc82b1e4488a2cfc4398cb6905e",
+            "747f76b8196d4de28339e240992a0ee1"
+        ],
+        "distance": 13.49,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 4.6333682943621035,
+            "oracle_error": 2.8875513376097808,
+            "trajectory_length": 14.847866399866891,
+            "shortest_path_length": 13.488660394933357,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "b882d05cc8d842879c647824f537a17c",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "44c1bb13d8df4ee0aec67f1ac63521d4",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "232e797493674e19a8016e626665b8b0",
+                0,
+                0
+            ],
+            [
+                "8bc71dc82b1e4488a2cfc4398cb6905e",
+                0,
+                0
+            ],
+            [
+                "747f76b8196d4de28339e240992a0ee1",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "239_1",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk straight past the kitchen area and bar stools until you reach a formal dining table.  Walk into the room with the sofa on the right and stop by the glass table. ",
+        "path_id": 239,
+        "gt_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4",
+            "fc4189783106499da4e9dd0a20636c4e"
+        ],
+        "pred_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "44c1bb13d8df4ee0aec67f1ac63521d4",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4"
+        ],
+        "distance": 13.49,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 3.1271018111983504,
+            "oracle_error": 3.1271018111983504,
+            "trajectory_length": 10.37374864949422,
+            "shortest_path_length": 13.488660394933357,
+            "success": 0,
+            "oracle_success": 0,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "b882d05cc8d842879c647824f537a17c",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "44c1bb13d8df4ee0aec67f1ac63521d4",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "57badf7fa7514fbaa937b5934cb3c0d4",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "239_2",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk through the kitchen, enter the dining room, walk to the doorway to the right of the dining room table, wait at the glass table. ",
+        "path_id": 239,
+        "gt_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4",
+            "fc4189783106499da4e9dd0a20636c4e"
+        ],
+        "pred_path": [
+            "b882d05cc8d842879c647824f537a17c",
+            "8fb3957c552247aaa3ae81b0de0595d7",
+            "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+            "b2a808be7a684e2d9e36517c5036d6be",
+            "57badf7fa7514fbaa937b5934cb3c0d4",
+            "fe22a594bf53470db07ea9f8b96f5685"
+        ],
+        "distance": 13.49,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 1.5255837272663864,
+            "oracle_error": 1.5255837272663864,
+            "trajectory_length": 12.740598118526304,
+            "shortest_path_length": 13.488660394933357,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "b882d05cc8d842879c647824f537a17c",
+                0,
+                0
+            ],
+            [
+                "8fb3957c552247aaa3ae81b0de0595d7",
+                0,
+                0
+            ],
+            [
+                "e8b0f0c7fa3f4f79b6a7f16144c545fc",
+                0,
+                0
+            ],
+            [
+                "b2a808be7a684e2d9e36517c5036d6be",
+                0,
+                0
+            ],
+            [
+                "57badf7fa7514fbaa937b5934cb3c0d4",
+                0,
+                0
+            ],
+            [
+                "fe22a594bf53470db07ea9f8b96f5685",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "1676_0",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk past the piano to the oval door opening, walk straight ahead to the bathtub, stop right in front of bathtub. ",
+        "path_id": 1676,
+        "gt_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "aa33c75e6b8f4b41bcf15c917135d7c7",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "pred_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "aa33c75e6b8f4b41bcf15c917135d7c7",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "distance": 11.77,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 11.76563797496857,
+            "shortest_path_length": 11.76563797496857,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "6e951a0318b54df1ab206465f67b377f",
+                0,
+                0
+            ],
+            [
+                "609e62588e9149dba0ba478a64dac522",
+                0,
+                0
+            ],
+            [
+                "538a9f28b6a64ee39e14f791e7ce22f4",
+                0,
+                0
+            ],
+            [
+                "31b09a4f985246159cdb7331418bd4fa",
+                0,
+                0
+            ],
+            [
+                "aa33c75e6b8f4b41bcf15c917135d7c7",
+                0,
+                0
+            ],
+            [
+                "d777fc67b8164cb4a2fb05b81edb8015",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "1676_1",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Walk past piano. Walk through arched wooden doors. Wait at bathtub. ",
+        "path_id": 1676,
+        "gt_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "aa33c75e6b8f4b41bcf15c917135d7c7",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "pred_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "525368625e67458f892bfbc3a32618c1",
+            "aa33c75e6b8f4b41bcf15c917135d7c7",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "distance": 11.77,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 11.895237431317867,
+            "shortest_path_length": 11.76563797496857,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9891049290022504
+        },
+        "trajectory": [
+            [
+                "6e951a0318b54df1ab206465f67b377f",
+                0,
+                0
+            ],
+            [
+                "609e62588e9149dba0ba478a64dac522",
+                0,
+                0
+            ],
+            [
+                "538a9f28b6a64ee39e14f791e7ce22f4",
+                0,
+                0
+            ],
+            [
+                "31b09a4f985246159cdb7331418bd4fa",
+                0,
+                0
+            ],
+            [
+                "525368625e67458f892bfbc3a32618c1",
+                0,
+                0
+            ],
+            [
+                "aa33c75e6b8f4b41bcf15c917135d7c7",
+                0,
+                0
+            ],
+            [
+                "d777fc67b8164cb4a2fb05b81edb8015",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "1676_2",
+        "scan": "QUCTc6BB5sX",
+        "instruction": "Turn left and walk across the hallway. Turn left again and walk across this hallway and wait by the bathtub. ",
+        "path_id": 1676,
+        "gt_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "aa33c75e6b8f4b41bcf15c917135d7c7",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "pred_path": [
+            "6e951a0318b54df1ab206465f67b377f",
+            "609e62588e9149dba0ba478a64dac522",
+            "538a9f28b6a64ee39e14f791e7ce22f4",
+            "31b09a4f985246159cdb7331418bd4fa",
+            "b3f39244773f4f03b278df12e61359cf",
+            "d777fc67b8164cb4a2fb05b81edb8015"
+        ],
+        "distance": 11.77,
+        "heading": 0.209,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 12.113845900371958,
+            "shortest_path_length": 11.76563797496857,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9712553776672447
+        },
+        "trajectory": [
+            [
+                "6e951a0318b54df1ab206465f67b377f",
+                0,
+                0
+            ],
+            [
+                "609e62588e9149dba0ba478a64dac522",
+                0,
+                0
+            ],
+            [
+                "538a9f28b6a64ee39e14f791e7ce22f4",
+                0,
+                0
+            ],
+            [
+                "31b09a4f985246159cdb7331418bd4fa",
+                0,
+                0
+            ],
+            [
+                "b3f39244773f4f03b278df12e61359cf",
+                0,
+                0
+            ],
+            [
+                "d777fc67b8164cb4a2fb05b81edb8015",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2390_0",
+        "scan": "EU6Fwq7SyZv",
+        "instruction": "turn right and go up the stairs and stand at the top. ",
+        "path_id": 2390,
+        "gt_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "pred_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "distance": 8.04,
+        "heading": 1.29,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 8.037513542415756,
+            "shortest_path_length": 8.037513542415756,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "faed19f97550433b958958f4df869251",
+                0,
+                0
+            ],
+            [
+                "659c84430ca14aa5bf83a61683649a89",
+                0,
+                0
+            ],
+            [
+                "5b2de972faea4ca381cd72140f77b0c0",
+                0,
+                0
+            ],
+            [
+                "930cbd6da8f14dfba4d883c55a069f96",
+                0,
+                0
+            ],
+            [
+                "2c9141f7b24547c3808608bf9ad54b4d",
+                0,
+                0
+            ],
+            [
+                "ec0a7a6c66244eeea1fba43caddae01a",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2390_1",
+        "scan": "EU6Fwq7SyZv",
+        "instruction": "Walk up the stairs and wait at the top. ",
+        "path_id": 2390,
+        "gt_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "pred_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "distance": 8.04,
+        "heading": 1.29,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 8.037513542415756,
+            "shortest_path_length": 8.037513542415756,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "faed19f97550433b958958f4df869251",
+                0,
+                0
+            ],
+            [
+                "659c84430ca14aa5bf83a61683649a89",
+                0,
+                0
+            ],
+            [
+                "5b2de972faea4ca381cd72140f77b0c0",
+                0,
+                0
+            ],
+            [
+                "930cbd6da8f14dfba4d883c55a069f96",
+                0,
+                0
+            ],
+            [
+                "2c9141f7b24547c3808608bf9ad54b4d",
+                0,
+                0
+            ],
+            [
+                "ec0a7a6c66244eeea1fba43caddae01a",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "2390_2",
+        "scan": "EU6Fwq7SyZv",
+        "instruction": "Go up the stairs. Stop at the top of the stairs. ",
+        "path_id": 2390,
+        "gt_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "pred_path": [
+            "faed19f97550433b958958f4df869251",
+            "659c84430ca14aa5bf83a61683649a89",
+            "5b2de972faea4ca381cd72140f77b0c0",
+            "930cbd6da8f14dfba4d883c55a069f96",
+            "2c9141f7b24547c3808608bf9ad54b4d",
+            "ec0a7a6c66244eeea1fba43caddae01a"
+        ],
+        "distance": 8.04,
+        "heading": 1.29,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 8.037513542415756,
+            "shortest_path_length": 8.037513542415756,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "faed19f97550433b958958f4df869251",
+                0,
+                0
+            ],
+            [
+                "659c84430ca14aa5bf83a61683649a89",
+                0,
+                0
+            ],
+            [
+                "5b2de972faea4ca381cd72140f77b0c0",
+                0,
+                0
+            ],
+            [
+                "930cbd6da8f14dfba4d883c55a069f96",
+                0,
+                0
+            ],
+            [
+                "2c9141f7b24547c3808608bf9ad54b4d",
+                0,
+                0
+            ],
+            [
+                "ec0a7a6c66244eeea1fba43caddae01a",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "5876_0",
+        "scan": "TbHJrupSAjP",
+        "instruction": "Exit the bedroom. Turn left continue down the hallway until you get to the stairs. Wait there. ",
+        "path_id": 5876,
+        "gt_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "74ec0b19076c4129b8b9ee0ae93de41c"
+        ],
+        "pred_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "7504e98760f046d7a8f1b179dc85d93a",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "998dfb266ae84564b136c862fae09dd5",
+            "a8311575bf3d485a81af8350aa25bddb",
+            "998dfb266ae84564b136c862fae09dd5",
+            "3077e2bb07d8497bb5e86ff17e4a9ef8",
+            "998dfb266ae84564b136c862fae09dd5",
+            "6bd070dd165942438e43b4294652094e",
+            "998dfb266ae84564b136c862fae09dd5",
+            "3077e2bb07d8497bb5e86ff17e4a9ef8",
+            "71e319685a2b4acca9fe0697215daba8"
+        ],
+        "distance": 10.38,
+        "heading": 5.226,
+        "metrics": {
+            "nav_error": 7.482545853546249,
+            "oracle_error": 2.837332764146637,
+            "trajectory_length": 22.515812537977,
+            "shortest_path_length": 10.376267476756617,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "3f9667c2794b467cad8075b6f5351edb",
+                0,
+                0
+            ],
+            [
+                "7504e98760f046d7a8f1b179dc85d93a",
+                0,
+                0
+            ],
+            [
+                "a17b80e0e3d04c6a901df849fb70c914",
+                0,
+                0
+            ],
+            [
+                "8d7d690182ad4ad2b898b8b221cbaf36",
+                0,
+                0
+            ],
+            [
+                "6f74aff5213145d989f9a30bcd69a978",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "a8311575bf3d485a81af8350aa25bddb",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "3077e2bb07d8497bb5e86ff17e4a9ef8",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "6bd070dd165942438e43b4294652094e",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "3077e2bb07d8497bb5e86ff17e4a9ef8",
+                0,
+                0
+            ],
+            [
+                "71e319685a2b4acca9fe0697215daba8",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "5876_1",
+        "scan": "TbHJrupSAjP",
+        "instruction": "Walk into the hallway and turn left. Walk to the left of the railing and across the hall past the plant. Stop to the left of the stairs. ",
+        "path_id": 5876,
+        "gt_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "74ec0b19076c4129b8b9ee0ae93de41c"
+        ],
+        "pred_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "7504e98760f046d7a8f1b179dc85d93a",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6d97e8fa98a24eb5b8b9bf01f940d323",
+            "ce5a75d3715b49c5b6fe193235e52c27",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "6bd070dd165942438e43b4294652094e",
+            "998dfb266ae84564b136c862fae09dd5",
+            "a8311575bf3d485a81af8350aa25bddb",
+            "998dfb266ae84564b136c862fae09dd5",
+            "3077e2bb07d8497bb5e86ff17e4a9ef8"
+        ],
+        "distance": 10.38,
+        "heading": 5.226,
+        "metrics": {
+            "nav_error": 6.273511651455799,
+            "oracle_error": 1.416211225473093,
+            "trajectory_length": 24.318270821104363,
+            "shortest_path_length": 10.376267476756617,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "3f9667c2794b467cad8075b6f5351edb",
+                0,
+                0
+            ],
+            [
+                "7504e98760f046d7a8f1b179dc85d93a",
+                0,
+                0
+            ],
+            [
+                "a17b80e0e3d04c6a901df849fb70c914",
+                0,
+                0
+            ],
+            [
+                "8d7d690182ad4ad2b898b8b221cbaf36",
+                0,
+                0
+            ],
+            [
+                "6d97e8fa98a24eb5b8b9bf01f940d323",
+                0,
+                0
+            ],
+            [
+                "ce5a75d3715b49c5b6fe193235e52c27",
+                0,
+                0
+            ],
+            [
+                "6f74aff5213145d989f9a30bcd69a978",
+                0,
+                0
+            ],
+            [
+                "6bd070dd165942438e43b4294652094e",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "a8311575bf3d485a81af8350aa25bddb",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "3077e2bb07d8497bb5e86ff17e4a9ef8",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "5876_2",
+        "scan": "TbHJrupSAjP",
+        "instruction": "Exit the room and turn left.  Stop just before you reach the stairs that go up. ",
+        "path_id": 5876,
+        "gt_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "74ec0b19076c4129b8b9ee0ae93de41c"
+        ],
+        "pred_path": [
+            "3f9667c2794b467cad8075b6f5351edb",
+            "7504e98760f046d7a8f1b179dc85d93a",
+            "a17b80e0e3d04c6a901df849fb70c914",
+            "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6d97e8fa98a24eb5b8b9bf01f940d323",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "998dfb266ae84564b136c862fae09dd5",
+            "6bd070dd165942438e43b4294652094e",
+            "998dfb266ae84564b136c862fae09dd5",
+            "3077e2bb07d8497bb5e86ff17e4a9ef8",
+            "998dfb266ae84564b136c862fae09dd5",
+            "a8311575bf3d485a81af8350aa25bddb",
+            "998dfb266ae84564b136c862fae09dd5",
+            "3077e2bb07d8497bb5e86ff17e4a9ef8",
+            "71e319685a2b4acca9fe0697215daba8"
+        ],
+        "distance": 10.38,
+        "heading": 5.226,
+        "metrics": {
+            "nav_error": 7.482545853546249,
+            "oracle_error": 1.571923622699271,
+            "trajectory_length": 25.26741406631003,
+            "shortest_path_length": 10.376267476756617,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "3f9667c2794b467cad8075b6f5351edb",
+                0,
+                0
+            ],
+            [
+                "7504e98760f046d7a8f1b179dc85d93a",
+                0,
+                0
+            ],
+            [
+                "a17b80e0e3d04c6a901df849fb70c914",
+                0,
+                0
+            ],
+            [
+                "8d7d690182ad4ad2b898b8b221cbaf36",
+                0,
+                0
+            ],
+            [
+                "6d97e8fa98a24eb5b8b9bf01f940d323",
+                0,
+                0
+            ],
+            [
+                "6f74aff5213145d989f9a30bcd69a978",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "6bd070dd165942438e43b4294652094e",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "3077e2bb07d8497bb5e86ff17e4a9ef8",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "a8311575bf3d485a81af8350aa25bddb",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "3077e2bb07d8497bb5e86ff17e4a9ef8",
+                0,
+                0
+            ],
+            [
+                "71e319685a2b4acca9fe0697215daba8",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "4332_0",
+        "scan": "8194nk5LbLH",
+        "instruction": "Walk to the other end of the lobby and wait near the exit. ",
+        "path_id": 4332,
+        "gt_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "f33c718aaf2c41469389a87944442c62",
+            "ae91518ed77047b3bdeeca864cd04029",
+            "6776097c17ed4b93aee61704eb32f06c"
+        ],
+        "pred_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "71bf74df73cd4e24a191ef4f2338ca22",
+            "fcd90a404061413385286bef9662630e",
+            "2393bffb53fe4205bcc67796c6fb76e3",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "6776097c17ed4b93aee61704eb32f06c",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "2393bffb53fe4205bcc67796c6fb76e3",
+            "423efb97f77f4e7995f19c66fe82afbc",
+            "2393bffb53fe4205bcc67796c6fb76e3",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "66d4adb61b57494aa2c1ad141a0fad9b",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "fcd90a404061413385286bef9662630e",
+            "71bf74df73cd4e24a191ef4f2338ca22",
+            "be8a2edacab34ec8887ba6a7b1e4945f",
+            "f33c718aaf2c41469389a87944442c62",
+            "ae91518ed77047b3bdeeca864cd04029",
+            "66d4adb61b57494aa2c1ad141a0fad9b",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "2393bffb53fe4205bcc67796c6fb76e3",
+            "423efb97f77f4e7995f19c66fe82afbc",
+            "aeed67040d744240b188f66f17d87d43"
+        ],
+        "distance": 10.86,
+        "heading": 4.055,
+        "metrics": {
+            "nav_error": 9.636460788332698,
+            "oracle_error": 0,
+            "trajectory_length": 62.20791014782454,
+            "shortest_path_length": 10.857857155187645,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "c9e8dc09263e4d0da77d16de0ecddd39",
+                0,
+                0
+            ],
+            [
+                "71bf74df73cd4e24a191ef4f2338ca22",
+                0,
+                0
+            ],
+            [
+                "fcd90a404061413385286bef9662630e",
+                0,
+                0
+            ],
+            [
+                "2393bffb53fe4205bcc67796c6fb76e3",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "6776097c17ed4b93aee61704eb32f06c",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "2393bffb53fe4205bcc67796c6fb76e3",
+                0,
+                0
+            ],
+            [
+                "423efb97f77f4e7995f19c66fe82afbc",
+                0,
+                0
+            ],
+            [
+                "2393bffb53fe4205bcc67796c6fb76e3",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "66d4adb61b57494aa2c1ad141a0fad9b",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "fcd90a404061413385286bef9662630e",
+                0,
+                0
+            ],
+            [
+                "71bf74df73cd4e24a191ef4f2338ca22",
+                0,
+                0
+            ],
+            [
+                "be8a2edacab34ec8887ba6a7b1e4945f",
+                0,
+                0
+            ],
+            [
+                "f33c718aaf2c41469389a87944442c62",
+                0,
+                0
+            ],
+            [
+                "ae91518ed77047b3bdeeca864cd04029",
+                0,
+                0
+            ],
+            [
+                "66d4adb61b57494aa2c1ad141a0fad9b",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "2393bffb53fe4205bcc67796c6fb76e3",
+                0,
+                0
+            ],
+            [
+                "423efb97f77f4e7995f19c66fe82afbc",
+                0,
+                0
+            ],
+            [
+                "aeed67040d744240b188f66f17d87d43",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "4332_1",
+        "scan": "8194nk5LbLH",
+        "instruction": "Walk straight toward the bar with the chairs/stool. Turn left and go straight until you get to three tables with chairs. Turn left and wait near the couch. ",
+        "path_id": 4332,
+        "gt_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "f33c718aaf2c41469389a87944442c62",
+            "ae91518ed77047b3bdeeca864cd04029",
+            "6776097c17ed4b93aee61704eb32f06c"
+        ],
+        "pred_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "f33c718aaf2c41469389a87944442c62",
+            "ae91518ed77047b3bdeeca864cd04029",
+            "66d4adb61b57494aa2c1ad141a0fad9b",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "6776097c17ed4b93aee61704eb32f06c",
+            "fcd90a404061413385286bef9662630e",
+            "71bf74df73cd4e24a191ef4f2338ca22",
+            "be8a2edacab34ec8887ba6a7b1e4945f",
+            "71bf74df73cd4e24a191ef4f2338ca22",
+            "fcd90a404061413385286bef9662630e",
+            "2393bffb53fe4205bcc67796c6fb76e3"
+        ],
+        "distance": 10.86,
+        "heading": 4.055,
+        "metrics": {
+            "nav_error": 5.163127264153355,
+            "oracle_error": 0,
+            "trajectory_length": 39.20399140449978,
+            "shortest_path_length": 10.857857155187645,
+            "success": 0,
+            "oracle_success": 1,
+            "spl": 0
+        },
+        "trajectory": [
+            [
+                "c9e8dc09263e4d0da77d16de0ecddd39",
+                0,
+                0
+            ],
+            [
+                "f33c718aaf2c41469389a87944442c62",
+                0,
+                0
+            ],
+            [
+                "ae91518ed77047b3bdeeca864cd04029",
+                0,
+                0
+            ],
+            [
+                "66d4adb61b57494aa2c1ad141a0fad9b",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "6776097c17ed4b93aee61704eb32f06c",
+                0,
+                0
+            ],
+            [
+                "fcd90a404061413385286bef9662630e",
+                0,
+                0
+            ],
+            [
+                "71bf74df73cd4e24a191ef4f2338ca22",
+                0,
+                0
+            ],
+            [
+                "be8a2edacab34ec8887ba6a7b1e4945f",
+                0,
+                0
+            ],
+            [
+                "71bf74df73cd4e24a191ef4f2338ca22",
+                0,
+                0
+            ],
+            [
+                "fcd90a404061413385286bef9662630e",
+                0,
+                0
+            ],
+            [
+                "2393bffb53fe4205bcc67796c6fb76e3",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "4332_2",
+        "scan": "8194nk5LbLH",
+        "instruction": "Go forward toward the windows. Go toward the the far couch, Stop next to the couch, in front of the windows. ",
+        "path_id": 4332,
+        "gt_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "f33c718aaf2c41469389a87944442c62",
+            "ae91518ed77047b3bdeeca864cd04029",
+            "6776097c17ed4b93aee61704eb32f06c"
+        ],
+        "pred_path": [
+            "c9e8dc09263e4d0da77d16de0ecddd39",
+            "71bf74df73cd4e24a191ef4f2338ca22",
+            "fcd90a404061413385286bef9662630e",
+            "c07d4ae8330542a09cf8f8dddb9728ce",
+            "6776097c17ed4b93aee61704eb32f06c"
+        ],
+        "distance": 10.86,
+        "heading": 4.055,
+        "metrics": {
+            "nav_error": 0,
+            "oracle_error": 0,
+            "trajectory_length": 11.841785381941722,
+            "shortest_path_length": 10.857857155187645,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 0.9169104830885948
+        },
+        "trajectory": [
+            [
+                "c9e8dc09263e4d0da77d16de0ecddd39",
+                0,
+                0
+            ],
+            [
+                "71bf74df73cd4e24a191ef4f2338ca22",
+                0,
+                0
+            ],
+            [
+                "fcd90a404061413385286bef9662630e",
+                0,
+                0
+            ],
+            [
+                "c07d4ae8330542a09cf8f8dddb9728ce",
+                0,
+                0
+            ],
+            [
+                "6776097c17ed4b93aee61704eb32f06c",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "237_0",
+        "scan": "X7HyMhZNoso",
+        "instruction": "Turn right and walk towards the refrigerator. Go up the stairs to the left of the refrigerator, past the banister. Turn right, then turn right again. Head up those stairs. ",
+        "path_id": 237,
+        "gt_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "87b4508bfdbf497299bd26eb4b23282a",
+            "6207c0c642ec4cdf95a41a9cc0b7fb38"
+        ],
+        "pred_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "029cf65713c547dfab71506002ace32c",
+            "5d2f4dddae3f4c06b69ae136bd76cafd"
+        ],
+        "distance": 9.45,
+        "heading": 4.727,
+        "metrics": {
+            "nav_error": 0.6135609767578114,
+            "oracle_error": 0.6135609767578114,
+            "trajectory_length": 8.887950017258229,
+            "shortest_path_length": 9.448267973287138,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "a12310b042224339a8902def257953cd",
+                0,
+                0
+            ],
+            [
+                "29a55ded3f094585a9bf7c8d2bf312be",
+                0,
+                0
+            ],
+            [
+                "32a001fd02e24ca88268228786d22bef",
+                0,
+                0
+            ],
+            [
+                "3c90780cab6b4495a89cbf1dac752255",
+                0,
+                0
+            ],
+            [
+                "273d144230a740888de22539802509ad",
+                0,
+                0
+            ],
+            [
+                "029cf65713c547dfab71506002ace32c",
+                0,
+                0
+            ],
+            [
+                "5d2f4dddae3f4c06b69ae136bd76cafd",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "237_1",
+        "scan": "X7HyMhZNoso",
+        "instruction": "Make a left and go up the stairs. Walk straight into the hall. Make a left and go up to the third brown step. ",
+        "path_id": 237,
+        "gt_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "87b4508bfdbf497299bd26eb4b23282a",
+            "6207c0c642ec4cdf95a41a9cc0b7fb38"
+        ],
+        "pred_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "029cf65713c547dfab71506002ace32c",
+            "5d2f4dddae3f4c06b69ae136bd76cafd"
+        ],
+        "distance": 9.45,
+        "heading": 4.727,
+        "metrics": {
+            "nav_error": 0.6135609767578114,
+            "oracle_error": 0.6135609767578114,
+            "trajectory_length": 8.887950017258229,
+            "shortest_path_length": 9.448267973287138,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "a12310b042224339a8902def257953cd",
+                0,
+                0
+            ],
+            [
+                "29a55ded3f094585a9bf7c8d2bf312be",
+                0,
+                0
+            ],
+            [
+                "32a001fd02e24ca88268228786d22bef",
+                0,
+                0
+            ],
+            [
+                "3c90780cab6b4495a89cbf1dac752255",
+                0,
+                0
+            ],
+            [
+                "273d144230a740888de22539802509ad",
+                0,
+                0
+            ],
+            [
+                "029cf65713c547dfab71506002ace32c",
+                0,
+                0
+            ],
+            [
+                "5d2f4dddae3f4c06b69ae136bd76cafd",
+                0,
+                0
+            ]
+        ]
+    },
+    {
+        "instr_id": "237_2",
+        "scan": "X7HyMhZNoso",
+        "instruction": "Go straight passing the fridge and up the the small set of stairs. Turn right and go up 3 stairs on the next staircase and wait. ",
+        "path_id": 237,
+        "gt_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "87b4508bfdbf497299bd26eb4b23282a",
+            "6207c0c642ec4cdf95a41a9cc0b7fb38"
+        ],
+        "pred_path": [
+            "a12310b042224339a8902def257953cd",
+            "29a55ded3f094585a9bf7c8d2bf312be",
+            "32a001fd02e24ca88268228786d22bef",
+            "3c90780cab6b4495a89cbf1dac752255",
+            "273d144230a740888de22539802509ad",
+            "029cf65713c547dfab71506002ace32c",
+            "5d2f4dddae3f4c06b69ae136bd76cafd"
+        ],
+        "distance": 9.45,
+        "heading": 4.727,
+        "metrics": {
+            "nav_error": 0.6135609767578114,
+            "oracle_error": 0.6135609767578114,
+            "trajectory_length": 8.887950017258229,
+            "shortest_path_length": 9.448267973287138,
+            "success": 1,
+            "oracle_success": 1,
+            "spl": 1.0
+        },
+        "trajectory": [
+            [
+                "a12310b042224339a8902def257953cd",
+                0,
+                0
+            ],
+            [
+                "29a55ded3f094585a9bf7c8d2bf312be",
+                0,
+                0
+            ],
+            [
+                "32a001fd02e24ca88268228786d22bef",
+                0,
+                0
+            ],
+            [
+                "3c90780cab6b4495a89cbf1dac752255",
+                0,
+                0
+            ],
+            [
+                "273d144230a740888de22539802509ad",
+                0,
+                0
+            ],
+            [
+                "029cf65713c547dfab71506002ace32c",
+                0,
+                0
+            ],
+            [
+                "5d2f4dddae3f4c06b69ae136bd76cafd",
+                0,
+                0
+            ]
+        ]
+    }
+]

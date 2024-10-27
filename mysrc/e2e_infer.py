@@ -21,6 +21,7 @@ import numpy as np
 np.int = np.int32
 import pprint
 import torch
+from easydict import EasyDict as edict
 pp = pprint.PrettyPrinter(indent=4)
 
 from transformers import AutoTokenizer
@@ -32,6 +33,8 @@ from tasks.R2R.eval import Evaluation
 from copy import deepcopy
 from simple_colors import green
 from tqdm import tqdm
+
+from thirdparty.NaviLLM.train import minimal_eval
 
 TRAIN_VOCAB = 'tasks/R2R/data/train_vocab.txt'
 TRAINVAL_VOCAB = 'tasks/R2R/data/trainval_vocab.txt'
@@ -88,16 +91,16 @@ def save_results_scores(split, tmpfile, method_name, data):
             instr_id = f"{d['path_id']}_{i}"
             if instr_id in new_preds.keys():
                 data_and_preds.append({
-                    "distance": d["distance"],
-                    "scan": d["scan"],
-                    "path_id": d["path_id"],
                     "instr_id": instr_id,
+                    "scan": d["scan"],
+                    "instruction": inst,
+                    "path_id": d["path_id"],
                     "gt_path": d["path"],
                     "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
-                    "trajectory": new_preds[instr_id],
+                    "distance": d["distance"],
                     "heading": d["heading"],
-                    "instruction": inst,
                     "metrics": ev.scores_dict[instr_id],
+                    "trajectory": new_preds[instr_id],
                 })
     outfile = os.path.join(_OUTPUT_DIR, f"{method_name}_{split}.json")
     with open(outfile, 'w') as f:
@@ -129,7 +132,7 @@ def r2r_seq2seq(split):
     save_results_scores(split, tmpfile, "r2r_seq2seq", data)
 
 
-def navillm(split, use_buildpreds=False):
+def navillm_legacy(split, use_buildpreds=False):
     # DO NOT RUN on multiple nodes in parallel, only use nnodes=1 and nproc_per_node=1
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
@@ -193,18 +196,63 @@ def navillm(split, use_buildpreds=False):
     save_results_scores(split, tmpfile, "navillm", data)
 
 
+def navillm(split, do_set_individ_seeds=False, val_batch_size=1):
+    input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
+    data = []
+    with open(input_jsonpath) as f:
+        data += json.load(f)
+
+    # generating preds
+    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+    data_enc = []
+    for item in data:
+        new_item = dict(item)
+        new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
+        data_enc.append(new_item)
+    tmpfile_enc = os.path.join(_TMP_DIR, f"navillm_{split}_enc.json")
+    with open(tmpfile_enc, 'w') as f:
+        json.dump(data_enc, f, indent=4)
+
+    navillm_args = edict({
+        'stage': 'multi',
+        'seed': 0,
+        'mode': 'test',
+        'data_dir': 'data',
+        'cfg_file': 'configs/multi.yaml',
+        'pretrained_model_name_or_path': 'data/models/Vicuna-7B',
+        'precision': 'amp_bf16',
+        'resume_from_checkpoint': 'data/model_with_pretrain.pt',
+        'test_datasets': ['R2R'],
+        'jsonpath': os.path.join("../..", tmpfile_enc),
+        'batch_size': 12,
+        'output_dir': os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
+        'validation_split': split,
+        'save_pred_results': True,
+        'val_batch_size': 1,
+        'do_set_individ_seeds': do_set_individ_seeds,
+    })
+
+    os.chdir("thirdparty/NaviLLM")
+    minimal_eval(**navillm_args)
+    os.chdir("../..")
+
+    tmpfile = os.path.join(_TMP_DIR, f"navillm_{split}_eval", f"R2R_{split}.json")
+    save_results_scores(split, tmpfile, "navillm", data)
+
+
 if __name__ == "__main__":
     # eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
     # save_r2r_seq2seq_json_encodings('val_seen')
     # eval_from_json('my_val_seen', 'third_party/NaviLLM/build/eval/R2R_my_val_seen.json')
     # eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
-    
+
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
     os.makedirs(_OUTPUT_DIR, exist_ok=True)
 
-    for split in tqdm(['val_seen']):
-        r2r_seq2seq(split)
-        # navillm(split, use_buildpreds=False)
+    for split in tqdm(['val_unseen']):
+        # r2r_seq2seq(split)
+        navillm(split, do_set_individ_seeds=False, val_batch_size=2)
 
+    print("Current directory:", os.getcwd(), "Trying to remove:", _TMP_DIR)
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
