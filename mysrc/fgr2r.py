@@ -156,7 +156,7 @@ def gen_r2r_samples(fgr2r_loaded_sample):
         for sub_idx, sub_instr, sub_path in zip(range(len(sub_instrs)), sub_instrs, sub_paths):
             gen_r2r_sample = deepcopy(R2R_TEMPLATE)
             gen_r2r_sample.scan = fgr2r_loaded_sample.scan
-            gen_r2r_sample.path_id = f"{fgr2r_loaded_sample.path_id}_{idx}.{sub_idx}"
+            gen_r2r_sample.path_id = f"{fgr2r_loaded_sample.path_id}.{idx}.{sub_idx}"
             gen_r2r_sample.path = fgr2r_loaded_sample.path[sub_path[0] - 1:sub_path[1]]   # {sub_path[0]-1, sub_path[1]-1} subpath, both inclusive
             gen_r2r_sample.instructions = [sub_instr]
             gen_r2r_sample.heading = sim_traj[sub_path[0] - 1][1]
@@ -165,27 +165,27 @@ def gen_r2r_samples(fgr2r_loaded_sample):
 
 
 if __name__ == "__main__":
-    # for split in tqdm(['train', 'val_seen', 'val_unseen']):
-    #     fgr2r_path = f'tasks/R2R/data/FGR2R_{split}.json'
-    #     fgr2r_data = load_fg_r2r_data(fgr2r_path)
-    #     generated_r2r_samples = []
-    #     for sample in tqdm(fgr2r_data, leave=False):
-    #         gen_r2rs = gen_r2r_samples(sample)
-    #         generated_r2r_samples.extend(gen_r2rs)
-    #     with open(f'tasks/R2R/data/R2R_fgr2r_sub_{split}.json', 'w') as f:
-    #         json.dump(generated_r2r_samples, f, indent=2)
+    for split in tqdm(['train', 'val_seen', 'val_unseen']):
+        fgr2r_path = f'tasks/R2R/data/FGR2R_{split}.json'
+        fgr2r_data = load_fg_r2r_data(fgr2r_path)
+        generated_r2r_samples = []
+        for sample in tqdm(fgr2r_data, leave=False):
+            gen_r2rs = gen_r2r_samples(sample)
+            generated_r2r_samples.extend(gen_r2rs)
+        with open(f'tasks/R2R/data/R2R_fgr2r_sub_{split}.json', 'w') as f:
+            json.dump(generated_r2r_samples, f, indent=2)
 
-    r2r_temp = edict({
-        "scan": "QUCTc6BB5sX",
-        "path_id": "2365_1.0",
-        "path": [
-            "75ff3e14cc414e0e80e81f036520aedf",
-            "f1073371a7f44247a97f8c811c231676"
-        ],
-        "heading": 4.613,
-        "instructions": [
-            "go down hallway towards the two white vase"
-        ]
-    })
+    # r2r_temp = edict({
+    #     "scan": "QUCTc6BB5sX",
+    #     "path_id": "2365_1.0",
+    #     "path": [
+    #         "75ff3e14cc414e0e80e81f036520aedf",
+    #         "f1073371a7f44247a97f8c811c231676"
+    #     ],
+    #     "heading": 4.613,
+    #     "instructions": [
+    #         "go down hallway towards the two white vase"
+    #     ]
+    # })
 
-    visualize_traj_from_path(r2r_temp)
+    # visualize_traj_from_path(r2r_temp)

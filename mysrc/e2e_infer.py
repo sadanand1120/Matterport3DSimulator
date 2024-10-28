@@ -59,10 +59,10 @@ def save_r2r_seq2seq_json_encodings(split):
         json.dump(new_data, f, indent=4)
 
 
-def save_results_scores(split, predtrajs_file, method_name, data):
+def save_results_scores(split, predtrajs_file, method_name, data, error_margin=3.0):
     ''' Save the results and scores to disk. '''
     # generating scores
-    ev = Evaluation([split])
+    ev = Evaluation([split], error_margin=error_margin)
     score_summary, scores = ev.score(predtrajs_file)
     score_summary['total_num_instr'] = len(ev.scores_dict)
     print(green(f"{method_name}_{split}", 'bold'))
@@ -91,7 +91,7 @@ def save_results_scores(split, predtrajs_file, method_name, data):
                     "path_id": d["path_id"],
                     "gt_path": d["path"],
                     "pred_path": [viewpoint for viewpoint, _, _ in new_preds[instr_id]],
-                    "distance": d["distance"],
+                    **({"distance": d["distance"]} if "distance" in d else {}),
                     "heading": d["heading"],
                     "metrics": ev.scores_dict[instr_id],
                     "trajectory": new_preds[instr_id],
@@ -101,7 +101,7 @@ def save_results_scores(split, predtrajs_file, method_name, data):
         json.dump(data_and_preds, f, indent=4)
 
 
-def r2r_seq2seq(split):
+def r2r_seq2seq(split, error_margin=3.0):
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
     with open(input_jsonpath) as f:
@@ -123,10 +123,10 @@ def r2r_seq2seq(split):
     agent.test(use_dropout=False, feedback='argmax')
     agent.write_results()
 
-    save_results_scores(split, tmpfile, "r2r_seq2seq", data)
+    save_results_scores(split, tmpfile, "r2r_seq2seq", data, error_margin=error_margin)
 
 
-def navillm(split, do_set_individ_seeds=False, val_batch_size=1, method_postfix=""):
+def navillm(split, do_set_individ_seeds=False, val_batch_size=1, method_postfix="", error_margin=3.0):
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
     with open(input_jsonpath) as f:
@@ -168,18 +168,18 @@ def navillm(split, do_set_individ_seeds=False, val_batch_size=1, method_postfix=
     os.chdir("../..")
 
     tmpfile = os.path.join(_TMP_DIR, f"navillm{method_postfix}_{split}_eval", f"R2R_{split}.json")
-    save_results_scores(split, tmpfile, f"navillm{method_postfix}", data)
+    save_results_scores(split, tmpfile, f"navillm{method_postfix}", data, error_margin=error_margin)
 
 
 if __name__ == "__main__":
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
     os.makedirs(_OUTPUT_DIR, exist_ok=True)
-
-    for split in tqdm(['val_unseen1', 'val_unseen2', 'val_unseen', 'val_seen', 'train']):
-        # r2r_seq2seq(split)
-        # navillm(split=split, do_set_individ_seeds=False, val_batch_size=2)
-        navillm(split=split, do_set_individ_seeds=True, val_batch_size=1, method_postfix="_trajseed")
+    ERR_MARGIN = 3.0
+    for split in tqdm(['fgr2r_sub_val_seen', 'fgr2r_sub_val_unseen', 'fgr2r_sub_train']):
+        r2r_seq2seq(split, error_margin=ERR_MARGIN)
+        # navillm(split=split, do_set_individ_seeds=False, val_batch_size=2, error_margin=ERR_MARGIN)
+        navillm(split=split, do_set_individ_seeds=True, val_batch_size=1, method_postfix="_subinstrseed", error_margin=ERR_MARGIN)
 
     print("Current directory:", os.getcwd(), "Trying to remove:", _TMP_DIR)
     shutil.rmtree(_TMP_DIR, ignore_errors=True)

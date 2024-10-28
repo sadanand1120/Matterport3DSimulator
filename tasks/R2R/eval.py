@@ -31,16 +31,16 @@ MAX_INPUT_LENGTH = 80
 class Evaluation(object):
     ''' Results submission format:  [{'instr_id': string, 'trajectory':[(viewpoint_id, heading_rads, elevation_rads),] } ] '''
 
-    def __init__(self, splits):
-        self.error_margin = 3.0
+    def __init__(self, splits, error_margin=3.0):
+        self.error_margin = error_margin
         self.splits = splits
         self.gt = {}
         self.instr_ids = []
         self.scans = []
         for item in load_datasets(splits):
-            self.gt[item['path_id']] = item
+            self.gt[str(item['path_id'])] = item
             self.scans.append(item['scan'])
-            self.instr_ids += ['%d_%d' % (item['path_id'], i) for i in range(len(item['instructions']))]
+            self.instr_ids += [f"{item['path_id']}_{i}" for i in range(len(item['instructions']))]
         self.scans = set(self.scans)
         self.instr_ids = set(self.instr_ids)
         self.graphs = load_nav_graphs(self.scans)
@@ -63,7 +63,7 @@ class Evaluation(object):
         ''' Calculate error based on the final position in trajectory, and also
             the closest position (oracle stopping rule). '''
         # import ipdb; ipdb.set_trace()
-        gt = self.gt[int(instr_id.split('_')[0])]
+        gt = self.gt[instr_id.split('_')[0]]
         start = gt['path'][0]
         assert start == path[0][0], 'Result trajectories should include the start position'
         goal = gt['path'][-1]
@@ -112,7 +112,10 @@ class Evaluation(object):
         spls = []
         for err, length, sp in zip(self.scores['nav_errors'], self.scores['trajectory_lengths'], self.scores['shortest_path_lengths']):
             if err < self.error_margin:
-                spls.append(sp / max(length, sp))
+                if max(length, sp) == 0:
+                    spls.append(1.0)
+                else:
+                    spls.append(sp / max(length, sp))
             else:
                 spls.append(0)
 
@@ -128,7 +131,10 @@ class Evaluation(object):
             suc = 1 if self.scores_dict[idx]['nav_error'] < self.error_margin else 0
             oracle_suc = 1 if self.scores_dict[idx]['oracle_error'] < self.error_margin else 0
             if suc == 1:
-                spl = self.scores_dict[idx]['shortest_path_length'] / max(self.scores_dict[idx]['trajectory_length'], self.scores_dict[idx]['shortest_path_length'])
+                if max(self.scores_dict[idx]['trajectory_length'], self.scores_dict[idx]['shortest_path_length']) == 0:
+                    spl = 1.0
+                else:
+                    spl = self.scores_dict[idx]['shortest_path_length'] / max(self.scores_dict[idx]['trajectory_length'], self.scores_dict[idx]['shortest_path_length'])
             else:
                 spl = 0
             self.scores_dict[idx]['success'] = suc

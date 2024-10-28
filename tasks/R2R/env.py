@@ -114,7 +114,7 @@ class R2RBatch():
             for j,instr in enumerate(item['instructions']):
                 self.scans.append(item['scan'])
                 new_item = dict(item)
-                new_item['instr_id'] = '%s_%d' % (item['path_id'], j)
+                new_item['instr_id'] = f"{item['path_id']}_{j}"
                 new_item['instructions'] = instr
                 if tokenizer:
                     new_item['instr_encoding'] = tokenizer.encode_sentence(instr)
