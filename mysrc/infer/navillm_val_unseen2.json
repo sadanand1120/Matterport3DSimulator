@@ -1,10 +1,10 @@
 [
     {
-        "length": 16.52059863377504,
-        "nav_error": 2.21508424983053,
-        "oracle success_rate": 0.9583333333333334,
-        "success_rate": 0.7083333333333334,
-        "spl": 0.6812980513832644,
+        "length": 13.074620366971578,
+        "nav_error": 1.1131033141983193,
+        "oracle success_rate": 0.875,
+        "success_rate": 0.7916666666666666,
+        "spl": 0.7578323307087619,
         "total_num_instr": 24
     },
     {
@@ -24,19 +24,18 @@
             "414195b76186408b81db63defa6b8d83",
             "d30cfd0e67de459bb27053a7682c0104",
             "e049cbd79d51410e91b09ab7fd2074ec",
-            "3cdccfc437a14153939cf51089407b43",
-            "a24affdd623444d598e6b96b096152fe"
+            "3cdccfc437a14153939cf51089407b43"
         ],
         "distance": 10.66,
         "heading": 1.796,
         "metrics": {
-            "nav_error": 1.9990312739327019,
+            "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 12.662023108064208,
+            "trajectory_length": 10.662991834131507,
             "shortest_path_length": 10.662991834131507,
             "success": 1,
             "oracle_success": 1,
-            "spl": 0.8421238646563869
+            "spl": 1.0
         },
         "trajectory": [
             [
@@ -61,11 +60,6 @@
             ],
             [
                 "3cdccfc437a14153939cf51089407b43",
-                0,
-                0
-            ],
-            [
-                "a24affdd623444d598e6b96b096152fe",
                 0,
                 0
             ]
@@ -88,19 +82,18 @@
             "414195b76186408b81db63defa6b8d83",
             "d30cfd0e67de459bb27053a7682c0104",
             "e049cbd79d51410e91b09ab7fd2074ec",
-            "3cdccfc437a14153939cf51089407b43",
-            "a24affdd623444d598e6b96b096152fe"
+            "3cdccfc437a14153939cf51089407b43"
         ],
         "distance": 10.66,
         "heading": 1.796,
         "metrics": {
-            "nav_error": 1.9990312739327019,
+            "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 12.662023108064208,
+            "trajectory_length": 10.662991834131507,
             "shortest_path_length": 10.662991834131507,
             "success": 1,
             "oracle_success": 1,
-            "spl": 0.8421238646563869
+            "spl": 1.0
         },
         "trajectory": [
             [
@@ -125,11 +118,6 @@
             ],
             [
                 "3cdccfc437a14153939cf51089407b43",
-                0,
-                0
-            ],
-            [
-                "a24affdd623444d598e6b96b096152fe",
                 0,
                 0
             ]
@@ -286,7 +274,6 @@
         "pred_path": [
             "75ff3e14cc414e0e80e81f036520aedf",
             "f1073371a7f44247a97f8c811c231676",
-            "b882d05cc8d842879c647824f537a17c",
             "8fb3957c552247aaa3ae81b0de0595d7",
             "44c1bb13d8df4ee0aec67f1ac63521d4",
             "b2a808be7a684e2d9e36517c5036d6be",
@@ -297,11 +284,11 @@
         "metrics": {
             "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 16.456095596695075,
+            "trajectory_length": 15.939041363877829,
             "shortest_path_length": 15.926851298118617,
             "success": 1,
             "oracle_success": 1,
-            "spl": 0.9678390116618703
+            "spl": 0.9992352070942712
         },
         "trajectory": [
             [
@@ -311,11 +298,6 @@
             ],
             [
                 "f1073371a7f44247a97f8c811c231676",
-                0,
-                0
-            ],
-            [
-                "b882d05cc8d842879c647824f537a17c",
                 0,
                 0
             ],
@@ -424,19 +406,17 @@
             "8fb3957c552247aaa3ae81b0de0595d7",
             "44c1bb13d8df4ee0aec67f1ac63521d4",
             "b2a808be7a684e2d9e36517c5036d6be",
-            "232e797493674e19a8016e626665b8b0",
-            "8bc71dc82b1e4488a2cfc4398cb6905e",
-            "747f76b8196d4de28339e240992a0ee1"
+            "57badf7fa7514fbaa937b5934cb3c0d4"
         ],
         "distance": 13.49,
         "heading": 0.209,
         "metrics": {
-            "nav_error": 4.6333682943621035,
-            "oracle_error": 2.8875513376097808,
-            "trajectory_length": 14.847866399866891,
+            "nav_error": 3.1271018111983504,
+            "oracle_error": 3.1271018111983504,
+            "trajectory_length": 10.37374864949422,
             "shortest_path_length": 13.488660394933357,
             "success": 0,
-            "oracle_success": 1,
+            "oracle_success": 0,
             "spl": 0
         },
         "trajectory": [
@@ -461,17 +441,7 @@
                 0
             ],
             [
-                "232e797493674e19a8016e626665b8b0",
-                0,
-                0
-            ],
-            [
-                "8bc71dc82b1e4488a2cfc4398cb6905e",
-                0,
-                0
-            ],
-            [
-                "747f76b8196d4de28339e240992a0ee1",
+                "57badf7fa7514fbaa937b5934cb3c0d4",
                 0,
                 0
             ]
@@ -554,19 +524,18 @@
             "8fb3957c552247aaa3ae81b0de0595d7",
             "e8b0f0c7fa3f4f79b6a7f16144c545fc",
             "b2a808be7a684e2d9e36517c5036d6be",
-            "57badf7fa7514fbaa937b5934cb3c0d4",
-            "fe22a594bf53470db07ea9f8b96f5685"
+            "57badf7fa7514fbaa937b5934cb3c0d4"
         ],
         "distance": 13.49,
         "heading": 0.209,
         "metrics": {
-            "nav_error": 1.5255837272663864,
-            "oracle_error": 1.5255837272663864,
-            "trajectory_length": 12.740598118526304,
+            "nav_error": 3.1271018111983504,
+            "oracle_error": 3.1271018111983504,
+            "trajectory_length": 10.361558583735006,
             "shortest_path_length": 13.488660394933357,
-            "success": 1,
-            "oracle_success": 1,
-            "spl": 1.0
+            "success": 0,
+            "oracle_success": 0,
+            "spl": 0
         },
         "trajectory": [
             [
@@ -591,11 +560,6 @@
             ],
             [
                 "57badf7fa7514fbaa937b5934cb3c0d4",
-                0,
-                0
-            ],
-            [
-                "fe22a594bf53470db07ea9f8b96f5685",
                 0,
                 0
             ]
@@ -684,7 +648,6 @@
             "609e62588e9149dba0ba478a64dac522",
             "538a9f28b6a64ee39e14f791e7ce22f4",
             "31b09a4f985246159cdb7331418bd4fa",
-            "525368625e67458f892bfbc3a32618c1",
             "aa33c75e6b8f4b41bcf15c917135d7c7",
             "d777fc67b8164cb4a2fb05b81edb8015"
         ],
@@ -693,11 +656,11 @@
         "metrics": {
             "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 11.895237431317867,
+            "trajectory_length": 11.76563797496857,
             "shortest_path_length": 11.76563797496857,
             "success": 1,
             "oracle_success": 1,
-            "spl": 0.9891049290022504
+            "spl": 1.0
         },
         "trajectory": [
             [
@@ -717,11 +680,6 @@
             ],
             [
                 "31b09a4f985246159cdb7331418bd4fa",
-                0,
-                0
-            ],
-            [
-                "525368625e67458f892bfbc3a32618c1",
                 0,
                 0
             ],
@@ -1014,23 +972,16 @@
             "7504e98760f046d7a8f1b179dc85d93a",
             "a17b80e0e3d04c6a901df849fb70c914",
             "8d7d690182ad4ad2b898b8b221cbaf36",
+            "6d97e8fa98a24eb5b8b9bf01f940d323",
             "6f74aff5213145d989f9a30bcd69a978",
-            "998dfb266ae84564b136c862fae09dd5",
-            "a8311575bf3d485a81af8350aa25bddb",
-            "998dfb266ae84564b136c862fae09dd5",
-            "3077e2bb07d8497bb5e86ff17e4a9ef8",
-            "998dfb266ae84564b136c862fae09dd5",
-            "6bd070dd165942438e43b4294652094e",
-            "998dfb266ae84564b136c862fae09dd5",
-            "3077e2bb07d8497bb5e86ff17e4a9ef8",
-            "71e319685a2b4acca9fe0697215daba8"
+            "998dfb266ae84564b136c862fae09dd5"
         ],
         "distance": 10.38,
         "heading": 5.226,
         "metrics": {
-            "nav_error": 7.482545853546249,
-            "oracle_error": 2.837332764146637,
-            "trajectory_length": 22.515812537977,
+            "nav_error": 4.9775650126675774,
+            "oracle_error": 1.571923622699271,
+            "trajectory_length": 12.57771811855356,
             "shortest_path_length": 10.376267476756617,
             "success": 0,
             "oracle_success": 1,
@@ -1058,52 +1009,17 @@
                 0
             ],
             [
+                "6d97e8fa98a24eb5b8b9bf01f940d323",
+                0,
+                0
+            ],
+            [
                 "6f74aff5213145d989f9a30bcd69a978",
                 0,
                 0
             ],
             [
                 "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "a8311575bf3d485a81af8350aa25bddb",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "3077e2bb07d8497bb5e86ff17e4a9ef8",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "6bd070dd165942438e43b4294652094e",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "3077e2bb07d8497bb5e86ff17e4a9ef8",
-                0,
-                0
-            ],
-            [
-                "71e319685a2b4acca9fe0697215daba8",
                 0,
                 0
             ]
@@ -1130,8 +1046,18 @@
             "ce5a75d3715b49c5b6fe193235e52c27",
             "6f74aff5213145d989f9a30bcd69a978",
             "6bd070dd165942438e43b4294652094e",
-            "998dfb266ae84564b136c862fae09dd5",
+            "6d97e8fa98a24eb5b8b9bf01f940d323",
+            "ce5a75d3715b49c5b6fe193235e52c27",
+            "55d30e28790d4bfc8d8884a931b7b8e2",
+            "ce5a75d3715b49c5b6fe193235e52c27",
+            "6d97e8fa98a24eb5b8b9bf01f940d323",
             "a8311575bf3d485a81af8350aa25bddb",
+            "998dfb266ae84564b136c862fae09dd5",
+            "6f74aff5213145d989f9a30bcd69a978",
+            "ce5a75d3715b49c5b6fe193235e52c27",
+            "796739995f98411882bfbaac3cddd94c",
+            "ce5a75d3715b49c5b6fe193235e52c27",
+            "6f74aff5213145d989f9a30bcd69a978",
             "998dfb266ae84564b136c862fae09dd5",
             "3077e2bb07d8497bb5e86ff17e4a9ef8"
         ],
@@ -1140,7 +1066,7 @@
         "metrics": {
             "nav_error": 6.273511651455799,
             "oracle_error": 1.416211225473093,
-            "trajectory_length": 24.318270821104363,
+            "trajectory_length": 52.01199935456066,
             "shortest_path_length": 10.376267476756617,
             "success": 0,
             "oracle_success": 1,
@@ -1188,12 +1114,62 @@
                 0
             ],
             [
-                "998dfb266ae84564b136c862fae09dd5",
+                "6d97e8fa98a24eb5b8b9bf01f940d323",
+                0,
+                0
+            ],
+            [
+                "ce5a75d3715b49c5b6fe193235e52c27",
+                0,
+                0
+            ],
+            [
+                "55d30e28790d4bfc8d8884a931b7b8e2",
+                0,
+                0
+            ],
+            [
+                "ce5a75d3715b49c5b6fe193235e52c27",
+                0,
+                0
+            ],
+            [
+                "6d97e8fa98a24eb5b8b9bf01f940d323",
                 0,
                 0
             ],
             [
                 "a8311575bf3d485a81af8350aa25bddb",
+                0,
+                0
+            ],
+            [
+                "998dfb266ae84564b136c862fae09dd5",
+                0,
+                0
+            ],
+            [
+                "6f74aff5213145d989f9a30bcd69a978",
+                0,
+                0
+            ],
+            [
+                "ce5a75d3715b49c5b6fe193235e52c27",
+                0,
+                0
+            ],
+            [
+                "796739995f98411882bfbaac3cddd94c",
+                0,
+                0
+            ],
+            [
+                "ce5a75d3715b49c5b6fe193235e52c27",
+                0,
+                0
+            ],
+            [
+                "6f74aff5213145d989f9a30bcd69a978",
                 0,
                 0
             ],
@@ -1226,28 +1202,18 @@
             "7504e98760f046d7a8f1b179dc85d93a",
             "a17b80e0e3d04c6a901df849fb70c914",
             "8d7d690182ad4ad2b898b8b221cbaf36",
-            "6d97e8fa98a24eb5b8b9bf01f940d323",
-            "6f74aff5213145d989f9a30bcd69a978",
-            "998dfb266ae84564b136c862fae09dd5",
-            "6bd070dd165942438e43b4294652094e",
-            "998dfb266ae84564b136c862fae09dd5",
-            "3077e2bb07d8497bb5e86ff17e4a9ef8",
-            "998dfb266ae84564b136c862fae09dd5",
-            "a8311575bf3d485a81af8350aa25bddb",
-            "998dfb266ae84564b136c862fae09dd5",
-            "3077e2bb07d8497bb5e86ff17e4a9ef8",
-            "71e319685a2b4acca9fe0697215daba8"
+            "6d97e8fa98a24eb5b8b9bf01f940d323"
         ],
         "distance": 10.38,
         "heading": 5.226,
         "metrics": {
-            "nav_error": 7.482545853546249,
+            "nav_error": 1.571923622699271,
             "oracle_error": 1.571923622699271,
-            "trajectory_length": 25.26741406631003,
+            "trajectory_length": 8.998876612277062,
             "shortest_path_length": 10.376267476756617,
-            "success": 0,
+            "success": 1,
             "oracle_success": 1,
-            "spl": 0
+            "spl": 1.0
         },
         "trajectory": [
             [
@@ -1274,56 +1240,6 @@
                 "6d97e8fa98a24eb5b8b9bf01f940d323",
                 0,
                 0
-            ],
-            [
-                "6f74aff5213145d989f9a30bcd69a978",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "6bd070dd165942438e43b4294652094e",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "3077e2bb07d8497bb5e86ff17e4a9ef8",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "a8311575bf3d485a81af8350aa25bddb",
-                0,
-                0
-            ],
-            [
-                "998dfb266ae84564b136c862fae09dd5",
-                0,
-                0
-            ],
-            [
-                "3077e2bb07d8497bb5e86ff17e4a9ef8",
-                0,
-                0
-            ],
-            [
-                "71e319685a2b4acca9fe0697215daba8",
-                0,
-                0
             ]
         ]
     },
@@ -1344,35 +1260,18 @@
             "fcd90a404061413385286bef9662630e",
             "2393bffb53fe4205bcc67796c6fb76e3",
             "c07d4ae8330542a09cf8f8dddb9728ce",
-            "6776097c17ed4b93aee61704eb32f06c",
-            "c07d4ae8330542a09cf8f8dddb9728ce",
-            "2393bffb53fe4205bcc67796c6fb76e3",
-            "423efb97f77f4e7995f19c66fe82afbc",
-            "2393bffb53fe4205bcc67796c6fb76e3",
-            "c07d4ae8330542a09cf8f8dddb9728ce",
-            "66d4adb61b57494aa2c1ad141a0fad9b",
-            "c07d4ae8330542a09cf8f8dddb9728ce",
-            "fcd90a404061413385286bef9662630e",
-            "71bf74df73cd4e24a191ef4f2338ca22",
-            "be8a2edacab34ec8887ba6a7b1e4945f",
-            "f33c718aaf2c41469389a87944442c62",
-            "ae91518ed77047b3bdeeca864cd04029",
-            "66d4adb61b57494aa2c1ad141a0fad9b",
-            "c07d4ae8330542a09cf8f8dddb9728ce",
-            "2393bffb53fe4205bcc67796c6fb76e3",
-            "423efb97f77f4e7995f19c66fe82afbc",
-            "aeed67040d744240b188f66f17d87d43"
+            "6776097c17ed4b93aee61704eb32f06c"
         ],
         "distance": 10.86,
         "heading": 4.055,
         "metrics": {
-            "nav_error": 9.636460788332698,
+            "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 62.20791014782454,
+            "trajectory_length": 14.312710659986848,
             "shortest_path_length": 10.857857155187645,
-            "success": 0,
+            "success": 1,
             "oracle_success": 1,
-            "spl": 0
+            "spl": 0.7586164083888232
         },
         "trajectory": [
             [
@@ -1402,91 +1301,6 @@
             ],
             [
                 "6776097c17ed4b93aee61704eb32f06c",
-                0,
-                0
-            ],
-            [
-                "c07d4ae8330542a09cf8f8dddb9728ce",
-                0,
-                0
-            ],
-            [
-                "2393bffb53fe4205bcc67796c6fb76e3",
-                0,
-                0
-            ],
-            [
-                "423efb97f77f4e7995f19c66fe82afbc",
-                0,
-                0
-            ],
-            [
-                "2393bffb53fe4205bcc67796c6fb76e3",
-                0,
-                0
-            ],
-            [
-                "c07d4ae8330542a09cf8f8dddb9728ce",
-                0,
-                0
-            ],
-            [
-                "66d4adb61b57494aa2c1ad141a0fad9b",
-                0,
-                0
-            ],
-            [
-                "c07d4ae8330542a09cf8f8dddb9728ce",
-                0,
-                0
-            ],
-            [
-                "fcd90a404061413385286bef9662630e",
-                0,
-                0
-            ],
-            [
-                "71bf74df73cd4e24a191ef4f2338ca22",
-                0,
-                0
-            ],
-            [
-                "be8a2edacab34ec8887ba6a7b1e4945f",
-                0,
-                0
-            ],
-            [
-                "f33c718aaf2c41469389a87944442c62",
-                0,
-                0
-            ],
-            [
-                "ae91518ed77047b3bdeeca864cd04029",
-                0,
-                0
-            ],
-            [
-                "66d4adb61b57494aa2c1ad141a0fad9b",
-                0,
-                0
-            ],
-            [
-                "c07d4ae8330542a09cf8f8dddb9728ce",
-                0,
-                0
-            ],
-            [
-                "2393bffb53fe4205bcc67796c6fb76e3",
-                0,
-                0
-            ],
-            [
-                "423efb97f77f4e7995f19c66fe82afbc",
-                0,
-                0
-            ],
-            [
-                "aeed67040d744240b188f66f17d87d43",
                 0,
                 0
             ]
@@ -1509,24 +1323,18 @@
             "ae91518ed77047b3bdeeca864cd04029",
             "66d4adb61b57494aa2c1ad141a0fad9b",
             "c07d4ae8330542a09cf8f8dddb9728ce",
-            "6776097c17ed4b93aee61704eb32f06c",
-            "fcd90a404061413385286bef9662630e",
-            "71bf74df73cd4e24a191ef4f2338ca22",
-            "be8a2edacab34ec8887ba6a7b1e4945f",
-            "71bf74df73cd4e24a191ef4f2338ca22",
-            "fcd90a404061413385286bef9662630e",
-            "2393bffb53fe4205bcc67796c6fb76e3"
+            "6776097c17ed4b93aee61704eb32f06c"
         ],
         "distance": 10.86,
         "heading": 4.055,
         "metrics": {
-            "nav_error": 5.163127264153355,
+            "nav_error": 0,
             "oracle_error": 0,
-            "trajectory_length": 39.20399140449978,
+            "trajectory_length": 15.076948967386123,
             "shortest_path_length": 10.857857155187645,
-            "success": 0,
+            "success": 1,
             "oracle_success": 1,
-            "spl": 0
+            "spl": 0.7201627583057384
         },
         "trajectory": [
             [
@@ -1556,36 +1364,6 @@
             ],
             [
                 "6776097c17ed4b93aee61704eb32f06c",
-                0,
-                0
-            ],
-            [
-                "fcd90a404061413385286bef9662630e",
-                0,
-                0
-            ],
-            [
-                "71bf74df73cd4e24a191ef4f2338ca22",
-                0,
-                0
-            ],
-            [
-                "be8a2edacab34ec8887ba6a7b1e4945f",
-                0,
-                0
-            ],
-            [
-                "71bf74df73cd4e24a191ef4f2338ca22",
-                0,
-                0
-            ],
-            [
-                "fcd90a404061413385286bef9662630e",
-                0,
-                0
-            ],
-            [
-                "2393bffb53fe4205bcc67796c6fb76e3",
                 0,
                 0
             ]
@@ -1812,15 +1590,14 @@
             "32a001fd02e24ca88268228786d22bef",
             "3c90780cab6b4495a89cbf1dac752255",
             "273d144230a740888de22539802509ad",
-            "029cf65713c547dfab71506002ace32c",
-            "5d2f4dddae3f4c06b69ae136bd76cafd"
+            "029cf65713c547dfab71506002ace32c"
         ],
         "distance": 9.45,
         "heading": 4.727,
         "metrics": {
-            "nav_error": 0.6135609767578114,
-            "oracle_error": 0.6135609767578114,
-            "trajectory_length": 8.887950017258229,
+            "nav_error": 1.2840205928936386,
+            "oracle_error": 1.2840205928936386,
+            "trajectory_length": 8.2174904011224,
             "shortest_path_length": 9.448267973287138,
             "success": 1,
             "oracle_success": 1,
@@ -1854,11 +1631,6 @@
             ],
             [
                 "029cf65713c547dfab71506002ace32c",
-                0,
-                0
-            ],
-            [
-                "5d2f4dddae3f4c06b69ae136bd76cafd",
                 0,
                 0
             ]

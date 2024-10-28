@@ -171,4 +171,4 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
 
 if __name__ == '__main__':
     sim = get_sim_instance()
-    get_manual_control_view(sim)
+    get_manual_control_view(sim=sim)

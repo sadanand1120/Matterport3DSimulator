@@ -59,24 +59,18 @@ def save_r2r_seq2seq_json_encodings(split):
         json.dump(new_data, f, indent=4)
 
 
-def eval_from_json(split, json_filepath):
-    ''' Evaluate a json file of agent trajectories. '''
-    ev = Evaluation([split])
-    score_summary, scores = ev.score(json_filepath)
-    score_summary['total_num_instr'] = len(ev.scores_dict)
-    print(green(os.path.basename(json_filepath), 'bold'))
-    pp.pprint(score_summary)
-    return ev, score_summary
-
-
-def save_results_scores(split, tmpfile, method_name, data):
+def save_results_scores(split, predtrajs_file, method_name, data):
     ''' Save the results and scores to disk. '''
     # generating scores
-    ev, score_summary = eval_from_json(split, tmpfile)
+    ev = Evaluation([split])
+    score_summary, scores = ev.score(predtrajs_file)
+    score_summary['total_num_instr'] = len(ev.scores_dict)
+    print(green(f"{method_name}_{split}", 'bold'))
+    pp.pprint(score_summary)
 
     # reading preds
     preds = []
-    with open(tmpfile) as f:
+    with open(predtrajs_file) as f:
         preds += json.load(f)
     new_preds = dict()
     for pred in preds:
@@ -118,10 +112,10 @@ def r2r_seq2seq(split):
     tok = Tokenizer(vocab=vocab, encoding_length=MAX_INPUT_LENGTH)
     enc_hidden_size = 512 // 2 if False else 512
     encoder = EncoderLSTM(len(vocab), 256, enc_hidden_size, padding_idx, 0.5, bidirectional=False)
-    encoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_enc_iter_20000'), map_location='cuda'))
+    encoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_enc_iter_20000'), map_location='cuda', weights_only=True))
     encoder = encoder.cuda()
     decoder = AttnDecoderLSTM(Seq2SeqAgent.n_inputs(), Seq2SeqAgent.n_outputs(), 32, 512, 0.5)
-    decoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_dec_iter_20000'), map_location='cuda'))
+    decoder.load_state_dict(torch.load(os.path.join(SNAPSHOTS_DIR_R2R, 'seq2seq_sample_imagenet_train_dec_iter_20000'), map_location='cuda', weights_only=True))
     decoder = decoder.cuda()
     env = R2RBatch(IMAGENET_FEATURES, batch_size=40 if len(data) > 40 else len(data), splits=[split], tokenizer=tok)
     tmpfile = os.path.join(_TMP_DIR, f"r2r_seq2seq_{split}.json")
@@ -132,71 +126,7 @@ def r2r_seq2seq(split):
     save_results_scores(split, tmpfile, "r2r_seq2seq", data)
 
 
-def navillm_legacy(split, use_buildpreds=False):
-    # DO NOT RUN on multiple nodes in parallel, only use nnodes=1 and nproc_per_node=1
-    input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
-    data = []
-    with open(input_jsonpath) as f:
-        data += json.load(f)
-
-    if not use_buildpreds:
-        # generating preds
-        from transformers import AutoTokenizer
-        tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-        data_enc = []
-        for item in data:
-            new_item = dict(item)
-            new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
-            data_enc.append(new_item)
-        tmpfile_enc = os.path.join(_TMP_DIR, f"navillm_{split}_enc.json")
-        with open(tmpfile_enc, 'w') as f:
-            json.dump(data_enc, f, indent=4)
-        os.chdir("thirdparty/NaviLLM")
-        try:
-            command = [
-                'torchrun',
-                '--nnodes=1',
-                '--nproc_per_node=1',
-                '--master_port', '41000',
-                'train.py',
-                '--stage', 'multi',
-                '--seed', '0',
-                '--mode', 'test',
-                '--data_dir', 'data',
-                '--cfg_file', 'configs/multi.yaml',
-                '--pretrained_model_name_or_path', 'data/models/Vicuna-7B',
-                '--precision', 'amp_bf16',
-                '--resume_from_checkpoint', 'data/model_with_pretrain.pt',
-                '--test_datasets', 'R2R',
-                '--jsonpath', os.path.join("../..", tmpfile_enc),
-                '--batch_size', '12',
-                '--output_dir', os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
-                '--validation_split', split,
-                '--save_pred_results'
-            ]
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
-            # Print output as it is received
-            with process.stdout, process.stderr:
-                for line in iter(process.stdout.readline, ''):
-                    sys.stdout.write(line)
-                for line in iter(process.stderr.readline, ''):
-                    sys.stderr.write(line)
-            # Wait for the process to complete
-            process.wait()
-            if process.returncode != 0:
-                print(f"An error occurred with return code {process.returncode}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-        os.chdir("../..")
-
-    if not use_buildpreds:
-        tmpfile = os.path.join(_TMP_DIR, f"navillm_{split}_eval", f"R2R_{split}.json")
-    else:
-        tmpfile = os.path.join("thirdparty/NaviLLM/build/eval", f"R2R_{split}.json")
-    save_results_scores(split, tmpfile, "navillm", data)
-
-
-def navillm(split, do_set_individ_seeds=False, val_batch_size=1):
+def navillm(split, do_set_individ_seeds=False, val_batch_size=1, method_postfix=""):
     input_jsonpath = os.path.join(_DATA_PATH, f"R2R_{split}.json")
     data = []
     with open(input_jsonpath) as f:
@@ -209,7 +139,7 @@ def navillm(split, do_set_individ_seeds=False, val_batch_size=1):
         new_item = dict(item)
         new_item['instr_encodings'] = tokenizer(item['instructions']).input_ids
         data_enc.append(new_item)
-    tmpfile_enc = os.path.join(_TMP_DIR, f"navillm_{split}_enc.json")
+    tmpfile_enc = os.path.join(_TMP_DIR, f"navillm{method_postfix}_{split}_enc.json")
     with open(tmpfile_enc, 'w') as f:
         json.dump(data_enc, f, indent=4)
 
@@ -225,34 +155,31 @@ def navillm(split, do_set_individ_seeds=False, val_batch_size=1):
         'test_datasets': ['R2R'],
         'jsonpath': os.path.join("../..", tmpfile_enc),
         'batch_size': 12,
-        'output_dir': os.path.join("../..", _TMP_DIR, f"navillm_{split}_eval"),
+        'output_dir': os.path.join("../..", _TMP_DIR, f"navillm{method_postfix}_{split}_eval"),
         'validation_split': split,
         'save_pred_results': True,
-        'val_batch_size': 1,
+        'val_batch_size': val_batch_size,
         'do_set_individ_seeds': do_set_individ_seeds,
+        'log_level': 'ERROR',
     })
 
     os.chdir("thirdparty/NaviLLM")
     minimal_eval(**navillm_args)
     os.chdir("../..")
 
-    tmpfile = os.path.join(_TMP_DIR, f"navillm_{split}_eval", f"R2R_{split}.json")
-    save_results_scores(split, tmpfile, "navillm", data)
+    tmpfile = os.path.join(_TMP_DIR, f"navillm{method_postfix}_{split}_eval", f"R2R_{split}.json")
+    save_results_scores(split, tmpfile, f"navillm{method_postfix}", data)
 
 
 if __name__ == "__main__":
-    # eval_from_json('val_unseen', 'tasks/R2R/results/val_unseen_seq2seq_final_agent.json')
-    # save_r2r_seq2seq_json_encodings('val_seen')
-    # eval_from_json('my_val_seen', 'third_party/NaviLLM/build/eval/R2R_my_val_seen.json')
-    # eval_from_json('my_val_seen', '/root/mount/Matterport3DSimulator/tasks/R2R/results/my_val_seen_seq2seq_final_agent.json')
-
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
     os.makedirs(_TMP_DIR, exist_ok=True)
     os.makedirs(_OUTPUT_DIR, exist_ok=True)
 
-    for split in tqdm(['val_unseen']):
+    for split in tqdm(['val_unseen1', 'val_unseen2', 'val_unseen', 'val_seen', 'train']):
         # r2r_seq2seq(split)
-        navillm(split, do_set_individ_seeds=False, val_batch_size=2)
+        # navillm(split=split, do_set_individ_seeds=False, val_batch_size=2)
+        navillm(split=split, do_set_individ_seeds=True, val_batch_size=1, method_postfix="_trajseed")
 
     print("Current directory:", os.getcwd(), "Trying to remove:", _TMP_DIR)
     shutil.rmtree(_TMP_DIR, ignore_errors=True)

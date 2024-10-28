@@ -229,6 +229,7 @@ def pc_from_depth(image: cv2.imread, z: np.ndarray, vfov_deg: float = 60):
 if __name__ == "__main__":
     image_path = "teaser.jpg"
 
+    # print("Testing GPT-4V")
     # pil_img = Image.open(image_path)
     # text, finish_reason = gpt4v(
     #     context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with 'END'.",
@@ -241,19 +242,22 @@ if __name__ == "__main__":
     # print(text)
     # print(finish_reason)
 
+    # print("Testing Grounded SAM")
     # cv2_img = cv2.imread(image_path)
     # ann_img, *_ = groundedsam(classes=["door", "bar chairs"], image=cv2_img)
     # cv2.imshow("Grounded SAM", ann_img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
+    # print("Testing Depth")
     # cv2_img = cv2.imread(image_path)
     # dd = depth(cv2_img)
     # cv2.imshow("Depth", (dd * 4000).astype(np.uint16))
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-    # read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
+    # # read_dd = cv2.imread("src/driver/depth.png", cv2.IMREAD_UNCHANGED) / 4000
 
+    # print("Testing LLAMA-3")
     # text, reason = llama3(context="You are a helpful agent. Answer questions as formally and comprehensively as possible. End your answers with END token.",
     #                       prompt="What is the capital of France? Sydney?",
     #                       temperature=0.2,
@@ -264,6 +268,7 @@ if __name__ == "__main__":
     # print(text)
     # print(reason)
 
+    print("Testing InternVL2")
     text, fr = internvl2(context="You are a good VQA assistant. You always answer questions in very very detail. You always end your answers with END token.",
                          prompt="Describe the image, especially the objects and pathways with regards to navigation. Clearly demarcate three different areas: left, middle and right, and describe the environment in each with regards to navigation.",
                          image=Image.open(image_path),
