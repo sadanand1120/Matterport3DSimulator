@@ -87,13 +87,14 @@ def state_to_dict(mat_state):
     return dd
 
 
-def get_sim_instance(WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLED=False, scan_id='TbHJrupSAjP', viewpoint_id='ce5a75d3715b49c5b6fe193235e52c27', heading_rad=0, elevation_rad=0):
+def get_sim_instance(WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLED=False, scan_id='TbHJrupSAjP', viewpoint_id='ce5a75d3715b49c5b6fe193235e52c27', heading_rad=0.0, elevation_rad=0.0):
     VFOV = math.radians(vfovdeg)
 
     sim = MatterSim.Simulator()
     sim.setCameraResolution(WIDTH, HEIGHT)
     sim.setCameraVFOV(VFOV)
     sim.setDepthEnabled(DEPTH_ENABLED)  # Turn on depth only after running ./scripts/depth_to_skybox.py (see README.md)
+    sim.setRestrictedNavigation(False)  # so that all adjacent viewpoints are available in navigableLocs in the state, regardless of heading
     sim.initialize()
     if viewpoint_id is None:
         sim.newRandomEpisode([scan_id])
@@ -108,9 +109,11 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
     TEXT_COLOR = [40, 40, 230]
     ANGLEDELTA = 5 * math.pi / 180
 
-    cv2.namedWindow('Python RGB')
+    cv2.namedWindow('Python RGB', cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Python RGB', WIDTH, HEIGHT)
     if DEPTH_ENABLED:
-        cv2.namedWindow('Python Depth')
+        cv2.namedWindow('Python Depth', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Python Depth', WIDTH, HEIGHT)
     if RECORD_VIDEO:
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         out = cv2.VideoWriter(os.path.join(output_path, 'video.mp4'), fourcc, 1.0, (WIDTH, HEIGHT))
@@ -123,7 +126,7 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
             out.write(rgb)
         for idx, loc in enumerate(locations[1:]):
             # Draw actions on the screen
-            fontScale = 0.9 / loc.rel_distance
+            fontScale = 1.3 / loc.rel_distance
             x = int(WIDTH / 2 + loc.rel_heading / HFOV * WIDTH)
             y = int(HEIGHT / 2 - loc.rel_elevation / VFOV * HEIGHT)
             cv2.putText(rgb, f"{idx+1}:{loc.viewpointId[:4]}", (x, y), cv2.FONT_HERSHEY_SIMPLEX,
@@ -172,3 +175,4 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
 if __name__ == '__main__':
     sim = get_sim_instance()
     get_manual_control_view(sim=sim)
+    sim.close()
