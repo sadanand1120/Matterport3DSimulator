@@ -72,6 +72,8 @@ def gen_r2r_samples(fgr2r_loaded_sample):
     generated_r2r_samples = []
     sim_traj, sim_make_actions = simulate_traj_from_path(fgr2r_loaded_sample)
     for idx, full_instr in enumerate(tqdm(fgr2r_loaded_sample['instructions'], leave=False)):
+        if idx >= len(fgr2r_loaded_sample['new_instructions']):
+            continue
         sub_instrs = fgr2r_loaded_sample['new_instructions'][idx]  # list of sub-instructions strings
         sub_paths = fgr2r_loaded_sample['chunk_view'][idx]  # list of sub-path end point tuples
         for sub_idx, sub_instr, sub_path in zip(range(len(sub_instrs)), sub_instrs, sub_paths):
@@ -86,7 +88,7 @@ def gen_r2r_samples(fgr2r_loaded_sample):
 
 
 if __name__ == "__main__":
-    for split in tqdm(['train', 'test', 'val_seen', 'val_unseen']):
+    for split in tqdm(['train', 'val_seen', 'val_unseen']):
         fgr2r_path = f'tasks/R2R/data/FGR2R_{split}.json'
         fgr2r_data = load_fg_r2r_data(fgr2r_path)
         generated_r2r_samples = []
