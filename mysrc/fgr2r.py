@@ -10,6 +10,7 @@ from pprint import pprint
 import math
 import numpy as np
 import cv2
+from mysrc.hypothesis import to_r2r_format
 
 R2R_TEMPLATE = edict({
     # 'distance': 10.86,   # not used anywhere, rather directly calculated from connectivity graph
@@ -172,8 +173,11 @@ if __name__ == "__main__":
         for sample in tqdm(fgr2r_data, leave=False):
             gen_r2rs = gen_r2r_samples(sample)
             generated_r2r_samples.extend(gen_r2rs)
-        with open(f'tasks/R2R/data/R2R_fgr2r_sub_{split}.json', 'w') as f:
+        
+        save_path = f'tasks/R2R/data/R2R_fgr2r_sub_{split}.json'
+        with open(save_path, 'w') as f:
             json.dump(generated_r2r_samples, f, indent=2)
+        to_r2r_format(save_path)
 
     # r2r_temp = edict({
     #     "scan": "QUCTc6BB5sX",
