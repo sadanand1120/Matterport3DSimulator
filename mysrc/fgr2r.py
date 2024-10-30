@@ -161,6 +161,8 @@ def gen_r2r_samples(fgr2r_loaded_sample):
             gen_r2r_sample.path = fgr2r_loaded_sample.path[sub_path[0] - 1:sub_path[1]]   # {sub_path[0]-1, sub_path[1]-1} subpath, both inclusive
             gen_r2r_sample.instructions = [sub_instr]
             gen_r2r_sample.heading = sim_traj[sub_path[0] - 1][1]
+            gen_r2r_sample.end_heading = sim_traj[sub_path[1] - 1][1]
+            assert sim_traj[sub_path[1] - 1][0] == gen_r2r_sample.path[-1]  # sanity check
             generated_r2r_samples.append(gen_r2r_sample)
     return generated_r2r_samples
 
