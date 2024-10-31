@@ -38,6 +38,7 @@ export MAX_JOBS=6
 export PATH="${CUDA_HOME}/bin:$PATH"
 export VLLM_NCCL_SO_PATH=/usr/lib/x86_64-linux-gnu/libnccl.so.2
 export VLLM_LOGGING_LEVEL=ERROR
+export PYTHONWARNINGS="ignore"
 export PYTHONPATH=/root/mount/Matterport3DSimulator/build:$PYTHONPATH
 export MATTERPORT_DATA_DIR=/root/mount/Matterport3DSimulator/data/v1/scans
 

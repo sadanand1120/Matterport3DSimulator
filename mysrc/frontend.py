@@ -41,6 +41,33 @@ def gpt4(context: str, prompt: str, model: str = "gpt-4", temperature: float = 0
     return text, openai_response.choices[0].finish_reason
 
 
+def llama3_batch(context: str, prompts: List[str], model: str = "meta-llama/Meta-Llama-3.1-70B-Instruct", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0,
+                 gpu_memory_utilization: float = 0.9, num_gpus: int = 2) -> List[str]:
+    os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
+    input_prompts = []
+    for prompt in prompts:
+        llama3_prompt = f"<|begin_of_text|><|start_header_id|>system<|end_header_id|> \
+                        {context}<|eot_id|><|start_header_id|>user<|end_header_id|> \
+                        {prompt}<|eot_id|> \
+                        <|start_header_id|>assistant<|end_header_id|>"
+        input_prompts.append(llama3_prompt)
+    sampling_params = SamplingParams(temperature=temperature,
+                                     max_tokens=max_tokens,
+                                     stop=stop,
+                                     seed=seed)
+    llm = LLM(model=model,
+              gpu_memory_utilization=gpu_memory_utilization,
+              trust_remote_code=True,
+              tensor_parallel_size=num_gpus,
+              max_num_seqs=len(prompts))
+    outputs = llm.generate(input_prompts, sampling_params)
+    texts = [output.outputs[0].text.strip() for output in outputs]
+    finish_reasons = [output.outputs[0].finish_reason for output in outputs]
+    if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
+        del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
+    return texts, finish_reasons
+
+
 def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70B-Instruct", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0,
            gpu_memory_utilization: float = 0.9, num_gpus: int = 2) -> str:
     """
@@ -77,7 +104,7 @@ def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70
               trust_remote_code=True,
               tensor_parallel_size=num_gpus,
               max_num_seqs=1)
-    outputs = llm.generate(prompts, sampling_params)
+    outputs = llm.generate(prompts, sampling_params)  # use_tqdm=False to disable progress bar
     text = outputs[0].outputs[0].text.strip()
     if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
         del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
