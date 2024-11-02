@@ -14,11 +14,29 @@ import cv2
 import torch
 import open3d as o3d
 from vllm import LLM, SamplingParams, CompletionOutput
+from vllm.distributed.parallel_state import destroy_model_parallel, destroy_distributed_environment
+import contextlib
+import gc
+import ray
+from vllm.utils import is_cpu
 from typing import List, Union
 from mysrc.backend import *
 from thirdparty.DepthAnythingV2.metric_depth.depth_anything_v2.dpt import DepthAnythingV2
 
 GSAM = None
+
+
+def vllm_cleanup(llm):
+    del llm.llm_engine.model_executor
+    del llm
+    destroy_model_parallel()
+    destroy_distributed_environment()
+    with contextlib.suppress(AssertionError):
+        torch.distributed.destroy_process_group()
+    gc.collect()
+    if not is_cpu():
+        torch.cuda.empty_cache()
+    ray.shutdown()
 
 
 def gpt4(context: str, prompt: str, model: str = "gpt-4", temperature: float = 0.2, max_tokens: int = None, stop: Union[str, List[str]] = "END", seed: int = 0) -> str:
@@ -59,10 +77,13 @@ def llama3_batch(context: str, prompts: List[str], model: str = "meta-llama/Meta
               gpu_memory_utilization=gpu_memory_utilization,
               trust_remote_code=True,
               tensor_parallel_size=num_gpus,
-              max_num_seqs=len(prompts))
+              distributed_executor_backend='mp',
+              disable_custom_all_reduce=True,
+              max_num_seqs=min(len(prompts), 512))
     outputs = llm.generate(input_prompts, sampling_params)
     texts = [output.outputs[0].text.strip() for output in outputs]
     finish_reasons = [output.outputs[0].finish_reason for output in outputs]
+    vllm_cleanup(llm)
     if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
         del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
     return texts, finish_reasons
@@ -103,9 +124,12 @@ def llama3(context: str, prompt: str, model: str = "meta-llama/Meta-Llama-3.1-70
               gpu_memory_utilization=gpu_memory_utilization,
               trust_remote_code=True,
               tensor_parallel_size=num_gpus,
+              distributed_executor_backend='mp',
+              disable_custom_all_reduce=True,
               max_num_seqs=1)
     outputs = llm.generate(prompts, sampling_params)  # use_tqdm=False to disable progress bar
     text = outputs[0].outputs[0].text.strip()
+    vllm_cleanup(llm)
     if 'VLLM_WORKER_MULTIPROC_METHOD' in os.environ:
         del os.environ['VLLM_WORKER_MULTIPROC_METHOD']
     return text, outputs[0].outputs[0].finish_reason

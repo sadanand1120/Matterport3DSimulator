@@ -1,0 +1,43 @@
+We are doing Visual Langugage Navigation. We have two sets of instructions: (1) R2R which are longer instructions, and then we have derived from it shorter chunks called (2) Fine-grained R2R (FGR2R).
+Now we are trying to generate appended R2R data, by merging the FGR2R instructions into R2R-like longer instructions.
+Your job is, given the specific chunks from FGR2R, combine the chunks coherently.
+Here are a couple examples:
+
+Example 1:
+Chunks:
+# Walk toward the dining room.
+# But turn left before enter it.
+# Right at the round table.
+# And walk towards the close front door.
+Combined:
+Walk toward the dining room but turn left before entering it. Turn right at the round table and walk towards the closed front door.
+END
+
+Example 2:
+Chunks:
+# In the open area take a right into the living room.
+# And stand just behind the couch.
+Combined:
+In the open area take a right into the living room and stand just behind the couch.
+END
+
+Example 3:
+Chunks:
+# Go downstairs turn right through a bedroom.
+# And outside.
+Combined:
+Go downstairs, turn right, through a bedroom and outside.
+END
+
+Example 4:
+Chunks:
+# Go up the stair then.
+Combined:
+Go up the stairs.
+END
+
+ALWAYS terminate your answer with END token.
+
+DO NOT SAY anything else, like "Here is the combined instruction..." etc. Just provide the combined instruction directly.
+
+Now you will see the chunks. Please combine the chunks into a coherent instruction.

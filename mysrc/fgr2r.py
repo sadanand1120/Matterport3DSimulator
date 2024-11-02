@@ -10,6 +10,7 @@ from pprint import pprint
 import math
 import numpy as np
 import cv2
+import time
 from mysrc.hypothesis import to_r2r_format
 
 R2R_TEMPLATE = edict({
@@ -53,7 +54,7 @@ def simulate_traj_from_path(r2r_sample, WIDTH=800, HEIGHT=600):
     return trajectory, make_actions
 
 
-def visualize_traj_from_path(r2r_sample, WIDTH=800, HEIGHT=600, vfovdeg=60):
+def visualize_traj_from_path(r2r_sample, WIDTH=800, HEIGHT=600, vfovdeg=60, RECORD_VIDEO=False, video_path='./video.mp4', manual=True):
     VFOV = math.radians(vfovdeg)
     HFOV = 2 * math.atan(math.tan(VFOV / 2) * WIDTH / HEIGHT)
     TEXT_COLOR = [40, 40, 230]
@@ -65,23 +66,41 @@ def visualize_traj_from_path(r2r_sample, WIDTH=800, HEIGHT=600, vfovdeg=60):
     for instr in r2r_sample.instructions:
         print(instr)
 
-    cv2.namedWindow('Python RGB', cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('Python RGB', WIDTH, HEIGHT)
+    if manual:
+        cv2.namedWindow('Python RGB', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Python RGB', WIDTH, HEIGHT)
+
+    if RECORD_VIDEO:
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        out = cv2.VideoWriter(os.path.join(video_path), fourcc, 5.0, (WIDTH, HEIGHT))
+
+    _START = True
 
     while action_idx < len(make_actions):
         state = sim.getState()[0]
         rgb = np.array(state.rgb, copy=False)
-        for idx, loc in enumerate(state.navigableLocations[1:]):
-            # Draw actions on the screen
-            fontScale = 1.3 / loc.rel_distance
-            x = int(WIDTH / 2 + loc.rel_heading / HFOV * WIDTH)
-            y = int(HEIGHT / 2 - loc.rel_elevation / VFOV * HEIGHT)
-            cv2.putText(rgb, f"{idx+1}:{loc.viewpointId[:4]}", (x, y), cv2.FONT_HERSHEY_SIMPLEX, fontScale, TEXT_COLOR, thickness=2)
-        cv2.imshow('Python RGB', rgb)
-        k = cv2.waitKey(0)
-        k = (k & 255)
-        if k == ord('q'):
-            break
+        if _START:
+            _START = False
+            cv2.putText(rgb, "START", (int(WIDTH/2)-10 , int(HEIGHT/2)), cv2.FONT_HERSHEY_SIMPLEX, 2.0, [0, 0, 255], thickness=2)
+            for _ in range(10):
+                if RECORD_VIDEO:
+                    out.write(rgb)
+        if RECORD_VIDEO:
+            out.write(rgb)
+        if manual:
+            for idx, loc in enumerate(state.navigableLocations[1:]):
+                # Draw actions on the screen
+                fontScale = 1.3 / loc.rel_distance
+                x = int(WIDTH / 2 + loc.rel_heading / HFOV * WIDTH)
+                y = int(HEIGHT / 2 - loc.rel_elevation / VFOV * HEIGHT)
+                cv2.putText(rgb, f"{idx+1}:{loc.viewpointId[:4]}", (x, y), cv2.FONT_HERSHEY_SIMPLEX, fontScale, TEXT_COLOR, thickness=2)
+            cv2.imshow('Python RGB', rgb)
+            k = cv2.waitKey(0)
+            k = (k & 255)
+            if k == ord('q'):
+                break
+        else:
+            time.sleep(0.02)
 
         cur_action = make_actions[action_idx]
         to_take_action = None
@@ -124,6 +143,8 @@ def visualize_traj_from_path(r2r_sample, WIDTH=800, HEIGHT=600, vfovdeg=60):
 
     print("Goal reached!")
     sim.close()
+    if RECORD_VIDEO:
+        out.release()
     cv2.destroyAllWindows()
 
 

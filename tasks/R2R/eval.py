@@ -65,7 +65,7 @@ class Evaluation(object):
         # import ipdb; ipdb.set_trace()
         gt = self.gt[instr_id.split('_')[0]]
         start = gt['path'][0]
-        assert start == path[0][0], 'Result trajectories should include the start position'
+        assert start == path[0][0], f'Result trajectories should include the start position. Currently {start} != {path[0][0]} for {instr_id} and \n\ngt_path={gt["path"]} and\n\npath={path}'
         goal = gt['path'][-1]
         final_position = path[-1][0]
         nearest_position = self._get_nearest(gt['scan'], goal, path)

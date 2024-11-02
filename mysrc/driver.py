@@ -116,7 +116,7 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
         cv2.resizeWindow('Python Depth', WIDTH, HEIGHT)
     if RECORD_VIDEO:
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out = cv2.VideoWriter(os.path.join(output_path, 'video.mp4'), fourcc, 1.0, (WIDTH, HEIGHT))
+        out = cv2.VideoWriter(os.path.join(output_path, 'video.mp4'), fourcc, 5.0, (WIDTH, HEIGHT))
 
     while True:
         state = sim.getState()[0]
@@ -173,6 +173,6 @@ def get_manual_control_view(sim, WIDTH=800, HEIGHT=600, vfovdeg=60, DEPTH_ENABLE
 
 
 if __name__ == '__main__':
-    sim = get_sim_instance()
-    get_manual_control_view(sim=sim)
+    sim = get_sim_instance(scan_id='2n8kARJN3HM', viewpoint_id='b2d31a869b644c738697a237d4e724b5', heading_rad=3.0)
+    get_manual_control_view(sim=sim, RECORD_VIDEO=True, output_path='mysrc/fgr2r_analy')
     sim.close()

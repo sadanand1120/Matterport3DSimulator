@@ -1,0 +1,28 @@
+Context: we have natural language sub-instructions / short instructions for Visual-Language Navigation task in indoor environment such as Matterport3D R2R dataset.
+Given a sub-instruction (which might be 10-15 words long), we want to decompose it into a sequence of 1-2 atomic actions. Here is the DSL we are using for defining atomic predicates:
+
+- actions: walk(...), stop(...), turn_left(...), turn_right(...), turn_around(...), go_straight(...), etc.
+- objects: any possible things in the environment, e.g., table, chair, bed, stairs, door, etc.
+- positional predicates: near(...), in_front_of(...), behind(...), next_to(...), on_top_of(...), between(...), etc.
+- temporal predicates: before(...), after(...), at(...), along(...), until(...), etc.
+
+You need to use these intelligently to express the given instruction as a sequence of 2-3 atomic actions. Here are some examples:
+
+Instruction: "stop on the patio doorway before you hit touch the stone"
+Decomposition:
+```python
+stop(at(patio_doorway) && before(stone))
+```
+END
+
+Instruction: "walk to the end of the hallway then turn left"
+Decomposition:
+```python
+walk(until(hallway_end))
+turn_left()
+```
+END
+
+ALWAYS terminate your answer with END token.
+
+You will now see the new instruction. Please decompose it as described above.

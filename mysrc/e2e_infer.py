@@ -176,10 +176,10 @@ if __name__ == "__main__":
     os.makedirs(_TMP_DIR, exist_ok=True)
     os.makedirs(_OUTPUT_DIR, exist_ok=True)
     ERR_MARGIN = 3.0
-    for split in tqdm(['fgr2r_sub_val_seen', 'fgr2r_sub_val_unseen', 'fgr2r_sub_train']):
-        r2r_seq2seq(split, error_margin=ERR_MARGIN)
+    for split in tqdm(['mix_n_match_train']):
+        # r2r_seq2seq(split, error_margin=ERR_MARGIN)
         # navillm(split=split, do_set_individ_seeds=False, val_batch_size=2, error_margin=ERR_MARGIN)
-        navillm(split=split, do_set_individ_seeds=True, val_batch_size=1, method_postfix="_subinstrseed", error_margin=ERR_MARGIN)
+        navillm(split=split, do_set_individ_seeds=True, val_batch_size=1, method_postfix="", error_margin=ERR_MARGIN)
 
     print("Current directory:", os.getcwd(), "Trying to remove:", _TMP_DIR)
     shutil.rmtree(_TMP_DIR, ignore_errors=True)
